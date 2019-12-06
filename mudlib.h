@@ -15,11 +15,12 @@ class Mud_Base64
 public:
 	static TCHAR* encode(const BYTE* buf, unsigned int buflen, unsigned * outlen)
 	{
-		DWORD out_sz;
-		TCHAR* out = NULL;
-		if (CryptBinaryToString(buf, buflen, CRYPT_STRING_BASE64 | CRYPT_STRING_NOCRLF, out, &out_sz)) {
-			out = (TCHAR*)malloc((out_sz) * sizeof(TCHAR));
-			ZeroMemory(out, (out_sz) * sizeof(TCHAR));
+		DWORD out_sz =0;
+		if (CryptBinaryToString(buf, buflen, CRYPT_STRING_BASE64 | CRYPT_STRING_NOCRLF, nullptr, &out_sz)) {
+			if (!out_sz) return NULL;
+			TCHAR* out = (TCHAR*)malloc(out_sz * sizeof(TCHAR));
+			if (!out)return NULL;
+			memset(out, 0, out_sz * sizeof(TCHAR));
 			if (CryptBinaryToString(buf, buflen, CRYPT_STRING_BASE64 | CRYPT_STRING_NOCRLF, out, &out_sz))
 			{
 				*outlen = out_sz;
@@ -36,10 +37,10 @@ public:
 	{
 		BYTE *result = NULL;
 		DWORD out_sz = 0;
-
 		if (CryptStringToBinary(string, inlen, CRYPT_STRING_BASE64, NULL, &out_sz, NULL, NULL))
 		{
 			result = (BYTE*)malloc((out_sz) * sizeof(BYTE));
+			if (!result)return NULL;
 			ZeroMemory(result, (out_sz) * sizeof(BYTE));
 			CryptStringToBinary(string, inlen, CRYPT_STRING_BASE64, (BYTE*)result, &out_sz, NULL, NULL);
 		}
@@ -54,17 +55,18 @@ public:
 
 class Mud_String
 {
-	std::string utf8toansi(std::string s)
+public:
+	static std::string utf8toansi(std::string s)
 	{
 		return	utf16toansi(utf8toutf16(s));
 	}
 
-	std::string ansitouf8(std::string s)
+	static std::string ansitouf8(std::string s)
 	{
 		return	utf16toansi(ansitoutf16(s));
 	}
 
-	std::string utf16toansi(const std::wstring &wstr)
+	static std::string utf16toansi(const std::wstring &wstr)
 	{
 		if (wstr.empty()) return std::string();
 		int size_needed = WideCharToMultiByte(CP_ACP, 0, &wstr[0], (int)wstr.size(), NULL, 0, NULL, NULL);
@@ -73,7 +75,7 @@ class Mud_String
 		return strTo;
 	}
 
-	std::wstring ansitoutf16(const std::string &str)
+	static std::wstring ansitoutf16(const std::string &str)
 	{
 		if (str.empty()) return std::wstring();
 		int size_needed = MultiByteToWideChar(CP_ACP, 0, &str[0], (int)str.size(), NULL, 0);
@@ -82,7 +84,7 @@ class Mud_String
 		return wstrTo;
 	}
 
-	std::string utf16toutf8(const std::wstring &wstr)
+	static std::string utf16toutf8(const std::wstring &wstr)
 	{
 		if (wstr.empty()) return std::string();
 		int size_needed = WideCharToMultiByte(CP_UTF8, 0, &wstr[0], (int)wstr.size(), NULL, 0, NULL, NULL);
@@ -91,7 +93,7 @@ class Mud_String
 		return strTo;
 	}
 
-	std::wstring utf8toutf16(const std::string &str)
+	static std::wstring utf8toutf16(const std::string &str)
 	{
 		if (str.empty()) return std::wstring();
 		int size_needed = MultiByteToWideChar(CP_UTF8, 0, &str[0], (int)str.size(), NULL, 0);
@@ -186,9 +188,16 @@ public:
 		if (!input)return NULL;
 		fseek(input, 0, SEEK_END);
 		unsigned Size = ftell(input);
+		if (!Size)
+		{
+			err:
+			fclose(input);
+			return NULL;
+		}
 		*size = Size;
 		rewind(input);
 		BYTE *Memory = (BYTE *)malloc(Size);
+		if (!Memory) goto err;
 		int res = fread(Memory, 1, Size, input);
 		fclose(input);
 		if (!res)
@@ -224,8 +233,9 @@ public:
 
 	static void redirectiotoconsole()
 	{
-		freopen("CONOUT$", "w", stdout);
-		freopen("CONOUT$", "w", stderr);
+		FILE *file = nullptr;
+		freopen_s(&file, "CONOUT$", "w", stdout);
+		freopen_s(&file, "CONOUT$", "w", stderr);
 	}
 
 	static LPSTR* cmdlinetoargANSI(LPSTR lpCmdLine, INT *pNumArgs)

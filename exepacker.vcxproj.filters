@@ -11,25 +11,139 @@
       <Filter>common\lzma</Filter>
     </ClCompile>
     <ClCompile Include="exepacker.cpp">
-      <Filter>common\gui</Filter>
+      <Filter>gui</Filter>
     </ClCompile>
     <ClCompile Include="stdafx.cpp">
-      <Filter>common\gui</Filter>
+      <Filter>gui</Filter>
+    </ClCompile>
+    <ClCompile Include="backend\pe_bliss\entropy.cpp">
+      <Filter>common\pe_bliss</Filter>
+    </ClCompile>
+    <ClCompile Include="backend\pe_bliss\file_version_info.cpp">
+      <Filter>common\pe_bliss</Filter>
+    </ClCompile>
+    <ClCompile Include="backend\pe_bliss\message_table.cpp">
+      <Filter>common\pe_bliss</Filter>
+    </ClCompile>
+    <ClCompile Include="backend\pe_bliss\pe_base.cpp">
+      <Filter>common\pe_bliss</Filter>
+    </ClCompile>
+    <ClCompile Include="backend\pe_bliss\pe_bound_import.cpp">
+      <Filter>common\pe_bliss</Filter>
+    </ClCompile>
+    <ClCompile Include="backend\pe_bliss\pe_checksum.cpp">
+      <Filter>common\pe_bliss</Filter>
+    </ClCompile>
+    <ClCompile Include="backend\pe_bliss\pe_debug.cpp">
+      <Filter>common\pe_bliss</Filter>
+    </ClCompile>
+    <ClCompile Include="backend\pe_bliss\pe_directory.cpp">
+      <Filter>common\pe_bliss</Filter>
+    </ClCompile>
+    <ClCompile Include="backend\pe_bliss\pe_dotnet.cpp">
+      <Filter>common\pe_bliss</Filter>
+    </ClCompile>
+    <ClCompile Include="backend\pe_bliss\pe_exception.cpp">
+      <Filter>common\pe_bliss</Filter>
+    </ClCompile>
+    <ClCompile Include="backend\pe_bliss\pe_exception_directory.cpp">
+      <Filter>common\pe_bliss</Filter>
+    </ClCompile>
+    <ClCompile Include="backend\pe_bliss\pe_exports.cpp">
+      <Filter>common\pe_bliss</Filter>
+    </ClCompile>
+    <ClCompile Include="backend\pe_bliss\pe_factory.cpp">
+      <Filter>common\pe_bliss</Filter>
+    </ClCompile>
+    <ClCompile Include="backend\pe_bliss\pe_imports.cpp">
+      <Filter>common\pe_bliss</Filter>
+    </ClCompile>
+    <ClCompile Include="backend\pe_bliss\pe_load_config.cpp">
+      <Filter>common\pe_bliss</Filter>
+    </ClCompile>
+    <ClCompile Include="backend\pe_bliss\pe_properties.cpp">
+      <Filter>common\pe_bliss</Filter>
+    </ClCompile>
+    <ClCompile Include="backend\pe_bliss\pe_properties_generic.cpp">
+      <Filter>common\pe_bliss</Filter>
+    </ClCompile>
+    <ClCompile Include="backend\pe_bliss\pe_rebuilder.cpp">
+      <Filter>common\pe_bliss</Filter>
+    </ClCompile>
+    <ClCompile Include="backend\pe_bliss\pe_relocations.cpp">
+      <Filter>common\pe_bliss</Filter>
+    </ClCompile>
+    <ClCompile Include="backend\pe_bliss\pe_resource_manager.cpp">
+      <Filter>common\pe_bliss</Filter>
+    </ClCompile>
+    <ClCompile Include="backend\pe_bliss\pe_resource_viewer.cpp">
+      <Filter>common\pe_bliss</Filter>
+    </ClCompile>
+    <ClCompile Include="backend\pe_bliss\pe_resources.cpp">
+      <Filter>common\pe_bliss</Filter>
+    </ClCompile>
+    <ClCompile Include="backend\pe_bliss\pe_rich_data.cpp">
+      <Filter>common\pe_bliss</Filter>
+    </ClCompile>
+    <ClCompile Include="backend\pe_bliss\pe_section.cpp">
+      <Filter>common\pe_bliss</Filter>
+    </ClCompile>
+    <ClCompile Include="backend\pe_bliss\pe_tls.cpp">
+      <Filter>common\pe_bliss</Filter>
+    </ClCompile>
+    <ClCompile Include="backend\pe_bliss\resource_bitmap_reader.cpp">
+      <Filter>common\pe_bliss</Filter>
+    </ClCompile>
+    <ClCompile Include="backend\pe_bliss\resource_bitmap_writer.cpp">
+      <Filter>common\pe_bliss</Filter>
+    </ClCompile>
+    <ClCompile Include="backend\pe_bliss\resource_cursor_icon_reader.cpp">
+      <Filter>common\pe_bliss</Filter>
+    </ClCompile>
+    <ClCompile Include="backend\pe_bliss\resource_cursor_icon_writer.cpp">
+      <Filter>common\pe_bliss</Filter>
+    </ClCompile>
+    <ClCompile Include="backend\pe_bliss\resource_data_info.cpp">
+      <Filter>common\pe_bliss</Filter>
+    </ClCompile>
+    <ClCompile Include="backend\pe_bliss\resource_message_list_reader.cpp">
+      <Filter>common\pe_bliss</Filter>
+    </ClCompile>
+    <ClCompile Include="backend\pe_bliss\resource_string_table_reader.cpp">
+      <Filter>common\pe_bliss</Filter>
+    </ClCompile>
+    <ClCompile Include="backend\pe_bliss\resource_version_info_reader.cpp">
+      <Filter>common\pe_bliss</Filter>
+    </ClCompile>
+    <ClCompile Include="backend\pe_bliss\resource_version_info_writer.cpp">
+      <Filter>common\pe_bliss</Filter>
+    </ClCompile>
+    <ClCompile Include="backend\pe_bliss\utils.cpp">
+      <Filter>common\pe_bliss</Filter>
+    </ClCompile>
+    <ClCompile Include="backend\pe_bliss\version_info_editor.cpp">
+      <Filter>common\pe_bliss</Filter>
+    </ClCompile>
+    <ClCompile Include="backend\pe_bliss\version_info_viewer.cpp">
+      <Filter>common\pe_bliss</Filter>
     </ClCompile>
     <ClCompile Include="backend\fr_pack\frpacker.cpp">
       <Filter>common\frpacker</Filter>
     </ClCompile>
-    <ClCompile Include="backend\patternfind.cpp">
+    <ClCompile Include="backend\mupakk_main.cpp">
       <Filter>common</Filter>
     </ClCompile>
-    <ClCompile Include="backend\pack_util.cpp">
-      <Filter>backend_x86</Filter>
+    <ClCompile Include="backend\mupakk_res.cpp">
+      <Filter>common</Filter>
     </ClCompile>
-    <ClCompile Include="backend\pack.cpp">
-      <Filter>backend_x86</Filter>
+    <ClCompile Include="backend\mupakk_stubs.cpp">
+      <Filter>common</Filter>
     </ClCompile>
-    <ClCompile Include="backend\pack_stubs.cpp">
-      <Filter>backend_x86</Filter>
+    <ClCompile Include="backend\brieflz\brieflz.c">
+      <Filter>common\brieflz</Filter>
+    </ClCompile>
+    <ClCompile Include="backend\fr_pack\depacker_simple.cpp">
+      <Filter>common\frpacker</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -49,34 +163,25 @@
       <Filter>common\lzma</Filter>
     </ClInclude>
     <ClInclude Include="Views.h">
-      <Filter>common\gui</Filter>
+      <Filter>gui</Filter>
     </ClInclude>
     <ClInclude Include="DlgTabCtrl.h">
-      <Filter>common\gui</Filter>
+      <Filter>gui</Filter>
     </ClInclude>
     <ClInclude Include="logger.h">
-      <Filter>common\gui</Filter>
+      <Filter>gui</Filter>
     </ClInclude>
     <ClInclude Include="MainDlg.h">
-      <Filter>common\gui</Filter>
+      <Filter>gui</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">
-      <Filter>common\gui</Filter>
+      <Filter>gui</Filter>
     </ClInclude>
     <ClInclude Include="stdafx.h">
-      <Filter>common\gui</Filter>
+      <Filter>gui</Filter>
     </ClInclude>
     <ClInclude Include="utf8conv.h">
-      <Filter>common\gui</Filter>
-    </ClInclude>
-    <ClInclude Include="backend\pack_x86.h">
-      <Filter>backend_x86</Filter>
-    </ClInclude>
-    <ClInclude Include="backend\fr_pack\frpacker.hpp">
-      <Filter>common\frpacker</Filter>
-    </ClInclude>
-    <ClInclude Include="backend\patternfind.h">
-      <Filter>common</Filter>
+      <Filter>gui</Filter>
     </ClInclude>
     <ClInclude Include="backend\xbyak\xbyak.h">
       <Filter>common</Filter>
@@ -90,19 +195,37 @@
     <ClInclude Include="backend\xbyak\xbyak_util.h">
       <Filter>common</Filter>
     </ClInclude>
-    <ClInclude Include="mudlib.h">
+    <ClInclude Include="backend\fr_pack\frpacker.hpp">
+      <Filter>common\frpacker</Filter>
+    </ClInclude>
+    <ClInclude Include="backend\powapack.h">
       <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="backend\brieflz\brieflz.h">
+      <Filter>common\brieflz</Filter>
+    </ClInclude>
+    <ClInclude Include="backend\brieflz\brieflz_hashbucket.h">
+      <Filter>common\brieflz</Filter>
+    </ClInclude>
+    <ClInclude Include="backend\brieflz\brieflz_hashchain.h">
+      <Filter>common\brieflz</Filter>
+    </ClInclude>
+    <ClInclude Include="backend\brieflz\brieflz_lazy.h">
+      <Filter>common\brieflz</Filter>
+    </ClInclude>
+    <ClInclude Include="backend\brieflz\brieflz_leparse.h">
+      <Filter>common\brieflz</Filter>
+    </ClInclude>
+    <ClInclude Include="backend\brieflz\brieflz_sliding.h">
+      <Filter>common\brieflz</Filter>
+    </ClInclude>
+    <ClInclude Include="backend\brieflz\brieflz_ssparse.h">
+      <Filter>common\brieflz</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="backend_x86">
-      <UniqueIdentifier>{3d3be209-857e-4402-9ecf-1c1356b4338a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="common">
       <UniqueIdentifier>{e6c855d2-b313-4d09-84c0-b8a8d1143c0e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="common\gui">
-      <UniqueIdentifier>{28deb158-cc9d-4bed-8c6e-3fadbb172d5a}</UniqueIdentifier>
     </Filter>
     <Filter Include="common\frpacker">
       <UniqueIdentifier>{d8edd03f-2fc0-4b72-b65a-fcc4ecf1b710}</UniqueIdentifier>
@@ -110,52 +233,60 @@
     <Filter Include="common\lzma">
       <UniqueIdentifier>{78937947-345b-4039-94e0-bcd2035bb025}</UniqueIdentifier>
     </Filter>
+    <Filter Include="gui">
+      <UniqueIdentifier>{28deb158-cc9d-4bed-8c6e-3fadbb172d5a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="common\pe_bliss">
+      <UniqueIdentifier>{43a42996-c1ac-4eb5-ac0f-9932a35c38ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="common\brieflz">
+      <UniqueIdentifier>{5ec56ebb-2ab6-4b76-9c39-b3085998ca5b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\1400172265_131871.ico">
-      <Filter>common\gui</Filter>
+      <Filter>gui</Filter>
     </Image>
     <Image Include="res\1400172285_131908.ico">
-      <Filter>common\gui</Filter>
+      <Filter>gui</Filter>
     </Image>
     <Image Include="res\1400174099_131862.ico">
-      <Filter>common\gui</Filter>
+      <Filter>gui</Filter>
     </Image>
     <Image Include="res\1403842965_11865.ico">
-      <Filter>common\gui</Filter>
+      <Filter>gui</Filter>
     </Image>
     <Image Include="res\1403843176_12002.ico">
-      <Filter>common\gui</Filter>
+      <Filter>gui</Filter>
     </Image>
     <Image Include="res\1403843381_46014.ico">
-      <Filter>common\gui</Filter>
+      <Filter>gui</Filter>
     </Image>
     <Image Include="res\1403843410_27247.ico">
-      <Filter>common\gui</Filter>
+      <Filter>gui</Filter>
     </Image>
     <Image Include="res\compress2.ico">
-      <Filter>common\gui</Filter>
+      <Filter>gui</Filter>
     </Image>
     <Image Include="res\logo.bmp">
-      <Filter>common\gui</Filter>
+      <Filter>gui</Filter>
     </Image>
-  </ItemGroup>
-  <ItemGroup>
-    <MASM Include="backend\lzma\lzma_depacker_x86.asm">
-      <Filter>backend_x86</Filter>
-    </MASM>
-    <MASM Include="backend\fr_pack\fr_depacker_x86.asm">
-      <Filter>backend_x86</Filter>
-    </MASM>
+    <Image Include="res\logo2.png" />
+    <Image Include="res\logo1.bmp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="exepacker.rc">
-      <Filter>common\gui</Filter>
+      <Filter>gui</Filter>
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\mudpack.ico">
-      <Filter>common\gui</Filter>
+      <Filter>gui</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <MASM Include="backend\fr_pack\fr_depacker_x86.asm">
+      <Filter>common\frpacker</Filter>
+    </MASM>
   </ItemGroup>
 </Project>

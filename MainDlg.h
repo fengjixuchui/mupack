@@ -22,6 +22,7 @@ public:
 	CPackDlg m_view1;
 	CAboutDlg m_view3;
 
+
 	virtual BOOL PreTranslateMessage(MSG* pMsg)
 	{
 		return CWindow::IsDialogMessage(pMsg);
@@ -54,12 +55,14 @@ public:
 		CenterWindow();
 		// set icons
 		CImageList imglist;
-		CIcon mupack,abouticon;
+		CIcon mupack,abouticon,options;
 		mupack.LoadIcon(IDI_COMPRESS);
 		abouticon.LoadIcon(IDI_ABOUT);
+		options.LoadIcon(IDI_OPTIONS);
 		imglist.Create(16,16, ILC_COLOR32 | ILC_MASK, 1, 1);
 		imglist.AddIcon(mupack);
 		imglist.AddIcon(abouticon);
+		imglist.AddIcon(options);
 		m_ctrlTab.SubclassWindow(GetDlgItem(IDC_TAB));
 		m_view1.Create(m_hWnd);
 		m_view3.Create(m_hWnd);

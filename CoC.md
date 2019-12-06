@@ -1,6 +1,7 @@
-# Contributor Code of Conduct
+Go Fuck Yourself
+=============
 
-This project adheres to No Code of Conduct.  We are all adults.  We accept everyone's contributions.  Nothing else matters.
+Offended? Go away. We don't need people who are offended because of a stranger on the internet.  
+Not offended? You're welcome to contribute.
 
-For more information please visit the [No Code of Conduct](https://github.com/domgetter/NCoC) homepage.
-
+&copy; Copyright 2015 WTFCoC Consortium Committee.

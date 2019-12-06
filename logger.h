@@ -1,15 +1,14 @@
 #include "resource.h"
-
-enum log_err{
-	ERR_SUCCESS = 0,
-	ERR_INFO = 1,
-	ERR_WARNING = 2,
-	ERR_ERROR = 3
-};
-
+#include "stdafx.h"
 class LogMessage
 {
 public:
+	enum log_err {
+		ERR_SUCCESS = 0,
+		ERR_INFO = 1,
+		ERR_WARNING = 2,
+		ERR_ERROR = 3
+	};
 	static	LogMessage*				CreateInstance						(HWND window) ;
 	static	LogMessage*				GetSingleton						( ) ;
 	void                            init(HWND hwnd);

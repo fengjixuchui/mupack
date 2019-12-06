@@ -1,36 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
-    <ProjectConfiguration Include="Debug Packer|Win32">
-      <Configuration>Debug Packer</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Debug Packer|x64">
-      <Configuration>Debug Packer</Configuration>
-      <Platform>x64</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Debug Public Packer|Win32">
-      <Configuration>Debug Public Packer</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Debug Public Packer|x64">
-      <Configuration>Debug Public Packer</Configuration>
-      <Platform>x64</Platform>
-    </ProjectConfiguration>
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
     <ProjectConfiguration Include="Debug|x64">
       <Configuration>Debug</Configuration>
-      <Platform>x64</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Public Demo|Win32">
-      <Configuration>Public Demo</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Public Demo|x64">
-      <Configuration>Public Demo</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
     <ProjectConfiguration Include="Release|Win32">
@@ -44,15 +20,16 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{AF13E822-617D-4B1E-A092-C9C9B07C1E05}</ProjectGuid>
-    <ProjectName>exe_packer</ProjectName>
+    <ProjectName>mupakk</ProjectName>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset>v142</PlatformToolset>
+    <VCToolsVersion>14.22.27905</VCToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -66,43 +43,7 @@
     <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Public Demo|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
-    <UseDebugLibraries>false</UseDebugLibraries>
-    <CharacterSet>MultiByte</CharacterSet>
-    <PlatformToolset>v142</PlatformToolset>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug Packer|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
-    <UseDebugLibraries>false</UseDebugLibraries>
-    <CharacterSet>MultiByte</CharacterSet>
-    <PlatformToolset>v142</PlatformToolset>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug Public Packer|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
-    <UseDebugLibraries>false</UseDebugLibraries>
-    <CharacterSet>MultiByte</CharacterSet>
-    <PlatformToolset>v142</PlatformToolset>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
-    <UseDebugLibraries>false</UseDebugLibraries>
-    <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v142</PlatformToolset>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Public Demo|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
-    <UseDebugLibraries>false</UseDebugLibraries>
-    <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v142</PlatformToolset>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug Packer|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
-    <UseDebugLibraries>false</UseDebugLibraries>
-    <CharacterSet>MultiByte</CharacterSet>
-    <PlatformToolset>v142</PlatformToolset>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug Public Packer|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
@@ -121,33 +62,15 @@
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Public Demo|Win32'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug Packer|Win32'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug Public Packer|Win32'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Public Demo|x64'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug Packer|x64'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug Public Packer|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>C:\codecrack\code\wtl;$(IncludePath)</IncludePath>
-    <OutDir>$(SolutionDir)/out</OutDir>
-    <TargetName>exe_packer</TargetName>
+    <OutDir>$(SolutionDir)out\</OutDir>
+    <TargetName>mupakk</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IntDir>Debug</IntDir>
@@ -158,56 +81,12 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <LibraryPath>$(LibraryPath)</LibraryPath>
-    <IncludePath>C:\codecrack\wtl\Include;$(IncludePath)</IncludePath>
-    <OutDir>$(SolutionDir)/out</OutDir>
-    <TargetName>exe_packer</TargetName>
+    <IncludePath>$(SolutionDir)\wtl;$(IncludePath)</IncludePath>
+    <OutDir>$(SolutionDir)out\</OutDir>
+    <TargetName>mupakk</TargetName>
     <PreBuildEventUseInBuild>false</PreBuildEventUseInBuild>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Public Demo|Win32'">
-    <LinkIncremental>false</LinkIncremental>
-    <LibraryPath>$(LibraryPath)</LibraryPath>
-    <IncludePath>C:\codecrack\code\wtl;$(IncludePath)</IncludePath>
-    <OutDir>$(SolutionDir)/out</OutDir>
-    <TargetName>exe_packer</TargetName>
-    <PreBuildEventUseInBuild>false</PreBuildEventUseInBuild>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug Packer|Win32'">
-    <LinkIncremental>false</LinkIncremental>
-    <LibraryPath>$(LibraryPath)</LibraryPath>
-    <IncludePath>C:\codecrack\code\wtl;$(IncludePath)</IncludePath>
-    <OutDir>$(SolutionDir)/out</OutDir>
-    <TargetName>exe_packer</TargetName>
-    <PreBuildEventUseInBuild>false</PreBuildEventUseInBuild>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug Public Packer|Win32'">
-    <LinkIncremental>false</LinkIncremental>
-    <LibraryPath>$(LibraryPath)</LibraryPath>
-    <IncludePath>C:\codecrack\code\wtl;$(IncludePath)</IncludePath>
-    <OutDir>$(SolutionDir)/out</OutDir>
-    <TargetName>exe_packer</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IntDir>Release</IntDir>
-    <OutDir>Release</OutDir>
-    <LinkIncremental>false</LinkIncremental>
-    <LibraryPath>$(LibraryPath)</LibraryPath>
-    <IncludePath>C:\codere\wtl\include;$(IncludePath)</IncludePath>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Public Demo|x64'">
-    <IntDir>Release</IntDir>
-    <OutDir>Release</OutDir>
-    <LinkIncremental>false</LinkIncremental>
-    <LibraryPath>$(LibraryPath)</LibraryPath>
-    <IncludePath>C:\codere\wtl\include;$(IncludePath)</IncludePath>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug Packer|x64'">
-    <IntDir>Release</IntDir>
-    <OutDir>Release</OutDir>
-    <LinkIncremental>false</LinkIncremental>
-    <LibraryPath>$(LibraryPath)</LibraryPath>
-    <IncludePath>C:\codere\wtl\include;$(IncludePath)</IncludePath>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug Public Packer|x64'">
     <IntDir>Release</IntDir>
     <OutDir>Release</OutDir>
     <LinkIncremental>false</LinkIncremental>
@@ -240,10 +119,11 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
       <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
       <GenerateMapFile>true</GenerateMapFile>
       <OptimizeReferences>false</OptimizeReferences>
+      <OutputFile>$(SolutionDir)out\$(TargetName).exe</OutputFile>
     </Link>
     <ResourceCompile>
       <Culture>0x0409</Culture>
@@ -306,7 +186,7 @@
       <PreprocessorDefinitions>WIN32;_WINDOWS;STRICT;NDEBUG;ASMJIT_EMBED;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>../external_packages</AdditionalIncludeDirectories>
       <AssemblerOutput>AssemblyCode</AssemblerOutput>
-      <Optimization>Full</Optimization>
+      <Optimization>MinSpace</Optimization>
       <InlineFunctionExpansion>Default</InlineFunctionExpansion>
       <FavorSizeOrSpeed>Size</FavorSizeOrSpeed>
       <OmitFramePointers>true</OmitFramePointers>
@@ -315,117 +195,8 @@
       <BufferSecurityCheck>false</BufferSecurityCheck>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <CallingConvention>StdCall</CallingConvention>
-    </ClCompile>
-    <Link>
-      <SubSystem>Windows</SubSystem>
-      <TargetMachine>MachineX86</TargetMachine>
-      <AdditionalDependencies>winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <GenerateDebugInformation>false</GenerateDebugInformation>
-      <UACExecutionLevel>AsInvoker</UACExecutionLevel>
-      <AllowIsolation>true</AllowIsolation>
-      <GenerateMapFile>true</GenerateMapFile>
-      <MapFileName>exe_packer.map</MapFileName>
-      <AdditionalOptions>/SAFESEH:NO %(AdditionalOptions)</AdditionalOptions>
-      <OutputFile>out/mupack_prv.exe</OutputFile>
-      <OptimizeReferences>false</OptimizeReferences>
-      <EnableCOMDATFolding>false</EnableCOMDATFolding>
-    </Link>
-    <ResourceCompile>
-      <Culture>0x0409</Culture>
-      <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-    </ResourceCompile>
-    <Midl>
-      <MkTypLibCompatible>false</MkTypLibCompatible>
-      <TargetEnvironment>Win32</TargetEnvironment>
-      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <HeaderFileName>drivercfg.h</HeaderFileName>
-      <InterfaceIdentifierFileName>drivercfg_i.c</InterfaceIdentifierFileName>
-      <ProxyFileName>drivercfg_p.c</ProxyFileName>
-      <GenerateStublessProxies>true</GenerateStublessProxies>
-      <TypeLibraryName>$(IntDir)/drivercfg.tlb</TypeLibraryName>
-      <DllDataFileName>
-      </DllDataFileName>
-    </Midl>
-    <PreBuildEvent>
-      <Command>SubWCRev.exe $(SolutionDir) $(ProjectDir)\svn_version.txt $(ProjectDir)\svn_version.h</Command>
-      <Message>Generate SVN revision data</Message>
-    </PreBuildEvent>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Public Demo|Win32'">
-    <ClCompile>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <WarningLevel>Level3</WarningLevel>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <ExceptionHandling>false</ExceptionHandling>
-      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;STRICT;NDEBUG;DEMO;ASMJIT_EMBED;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>../external_packages</AdditionalIncludeDirectories>
-      <AssemblerOutput>AssemblyCode</AssemblerOutput>
-      <Optimization>MinSpace</Optimization>
-      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
-      <FavorSizeOrSpeed>Size</FavorSizeOrSpeed>
-      <OmitFramePointers>true</OmitFramePointers>
-      <IntrinsicFunctions>true</IntrinsicFunctions>
-      <StructMemberAlignment>1Byte</StructMemberAlignment>
-      <BufferSecurityCheck>false</BufferSecurityCheck>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
-      <CallingConvention>StdCall</CallingConvention>
-    </ClCompile>
-    <Link>
-      <SubSystem>Windows</SubSystem>
-      <TargetMachine>MachineX86</TargetMachine>
-      <AdditionalDependencies>winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <GenerateDebugInformation>No</GenerateDebugInformation>
-      <UACExecutionLevel>AsInvoker</UACExecutionLevel>
-      <AllowIsolation>true</AllowIsolation>
-      <GenerateMapFile>true</GenerateMapFile>
-      <MapFileName>exe_packer.map</MapFileName>
-      <AdditionalOptions>/SAFESEH:NO %(AdditionalOptions)</AdditionalOptions>
-      <OutputFile>out/mupack_pub.exe</OutputFile>
-      <OptimizeReferences>false</OptimizeReferences>
-    </Link>
-    <ResourceCompile>
-      <Culture>0x0409</Culture>
-      <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-    </ResourceCompile>
-    <Midl>
-      <MkTypLibCompatible>false</MkTypLibCompatible>
-      <TargetEnvironment>Win32</TargetEnvironment>
-      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <HeaderFileName>drivercfg.h</HeaderFileName>
-      <InterfaceIdentifierFileName>drivercfg_i.c</InterfaceIdentifierFileName>
-      <ProxyFileName>drivercfg_p.c</ProxyFileName>
-      <GenerateStublessProxies>true</GenerateStublessProxies>
-      <TypeLibraryName>$(IntDir)/drivercfg.tlb</TypeLibraryName>
-      <DllDataFileName>
-      </DllDataFileName>
-    </Midl>
-    <PreBuildEvent>
-      <Command>$(SolutionDir)GIT-VS-VERSION-GEN.bat "$(IntDir)\" "$(SolutionDir)..\src\gen-versioninfo.h"</Command>
-      <Message>Generate SVN revision data</Message>
-    </PreBuildEvent>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug Packer|Win32'">
-    <ClCompile>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <WarningLevel>Level3</WarningLevel>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <ExceptionHandling>false</ExceptionHandling>
-      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;STRICT;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>../external_packages</AdditionalIncludeDirectories>
-      <AssemblerOutput>AssemblyCode</AssemblerOutput>
-      <Optimization>MinSpace</Optimization>
-      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
-      <FavorSizeOrSpeed>Size</FavorSizeOrSpeed>
-      <OmitFramePointers>true</OmitFramePointers>
-      <IntrinsicFunctions>true</IntrinsicFunctions>
-      <StructMemberAlignment>1Byte</StructMemberAlignment>
-      <BufferSecurityCheck>false</BufferSecurityCheck>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
-      <CallingConvention>StdCall</CallingConvention>
+      <AdditionalOptions>
+      </AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -437,66 +208,9 @@
       <GenerateMapFile>true</GenerateMapFile>
       <MapFileName>exe_packer.map</MapFileName>
       <AdditionalOptions>/SAFESEH:NO %(AdditionalOptions)</AdditionalOptions>
-      <OutputFile>out/exe_packer.exe</OutputFile>
+      <OutputFile>$(SolutionDir)out\$(TargetName).exe</OutputFile>
       <OptimizeReferences>false</OptimizeReferences>
-      <ForceSymbolReferences>
-      </ForceSymbolReferences>
       <EnableCOMDATFolding>false</EnableCOMDATFolding>
-    </Link>
-    <ResourceCompile>
-      <Culture>0x0409</Culture>
-      <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-    </ResourceCompile>
-    <Midl>
-      <MkTypLibCompatible>false</MkTypLibCompatible>
-      <TargetEnvironment>Win32</TargetEnvironment>
-      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <HeaderFileName>drivercfg.h</HeaderFileName>
-      <InterfaceIdentifierFileName>drivercfg_i.c</InterfaceIdentifierFileName>
-      <ProxyFileName>drivercfg_p.c</ProxyFileName>
-      <GenerateStublessProxies>true</GenerateStublessProxies>
-      <TypeLibraryName>$(IntDir)/drivercfg.tlb</TypeLibraryName>
-      <DllDataFileName>
-      </DllDataFileName>
-    </Midl>
-    <PreBuildEvent>
-      <Command>SubWCRev.exe $(SolutionDir) $(ProjectDir)\svn_version.txt $(ProjectDir)\svn_version.h</Command>
-      <Message>Generate SVN revision data</Message>
-    </PreBuildEvent>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug Public Packer|Win32'">
-    <ClCompile>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <WarningLevel>Level3</WarningLevel>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <ExceptionHandling>false</ExceptionHandling>
-      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;STRICT;DEMO;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>../external_packages</AdditionalIncludeDirectories>
-      <AssemblerOutput>AssemblyCode</AssemblerOutput>
-      <Optimization>MinSpace</Optimization>
-      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
-      <FavorSizeOrSpeed>Size</FavorSizeOrSpeed>
-      <OmitFramePointers>true</OmitFramePointers>
-      <IntrinsicFunctions>true</IntrinsicFunctions>
-      <StructMemberAlignment>1Byte</StructMemberAlignment>
-      <BufferSecurityCheck>false</BufferSecurityCheck>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
-      <CallingConvention>StdCall</CallingConvention>
-    </ClCompile>
-    <Link>
-      <SubSystem>Windows</SubSystem>
-      <TargetMachine>MachineX86</TargetMachine>
-      <AdditionalDependencies>winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <GenerateDebugInformation>Debug</GenerateDebugInformation>
-      <UACExecutionLevel>AsInvoker</UACExecutionLevel>
-      <AllowIsolation>true</AllowIsolation>
-      <GenerateMapFile>true</GenerateMapFile>
-      <MapFileName>exe_packer.map</MapFileName>
-      <AdditionalOptions>/SAFESEH:NO %(AdditionalOptions)</AdditionalOptions>
-      <OutputFile>out/exe_packer.exe</OutputFile>
-      <OptimizeReferences>false</OptimizeReferences>
     </Link>
     <ResourceCompile>
       <Culture>0x0409</Culture>
@@ -537,116 +251,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <UACExecutionLevel>RequireAdministrator</UACExecutionLevel>
       <AllowIsolation>true</AllowIsolation>
-      <OutputFile>..\output\64\bassmididrvcfg.exe</OutputFile>
-    </Link>
-    <ResourceCompile>
-      <Culture>0x0409</Culture>
-      <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-    </ResourceCompile>
-    <Midl>
-      <MkTypLibCompatible>false</MkTypLibCompatible>
-      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <HeaderFileName>drivercfg.h</HeaderFileName>
-      <InterfaceIdentifierFileName>drivercfg_i.c</InterfaceIdentifierFileName>
-      <ProxyFileName>drivercfg_p.c</ProxyFileName>
-      <GenerateStublessProxies>true</GenerateStublessProxies>
-      <TypeLibraryName>$(IntDir)/drivercfg.tlb</TypeLibraryName>
-      <DllDataFileName>
-      </DllDataFileName>
-    </Midl>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Public Demo|x64'">
-    <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
-      <WarningLevel>Level3</WarningLevel>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <ExceptionHandling>
-      </ExceptionHandling>
-      <DebugInformationFormat>
-      </DebugInformationFormat>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;STRICT;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-    </ClCompile>
-    <Link>
-      <SubSystem>Windows</SubSystem>
-      <AdditionalDependencies>winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <UACExecutionLevel>RequireAdministrator</UACExecutionLevel>
-      <AllowIsolation>true</AllowIsolation>
-      <OutputFile>..\output\64\bassmididrvcfg.exe</OutputFile>
-    </Link>
-    <ResourceCompile>
-      <Culture>0x0409</Culture>
-      <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-    </ResourceCompile>
-    <Midl>
-      <MkTypLibCompatible>false</MkTypLibCompatible>
-      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <HeaderFileName>drivercfg.h</HeaderFileName>
-      <InterfaceIdentifierFileName>drivercfg_i.c</InterfaceIdentifierFileName>
-      <ProxyFileName>drivercfg_p.c</ProxyFileName>
-      <GenerateStublessProxies>true</GenerateStublessProxies>
-      <TypeLibraryName>$(IntDir)/drivercfg.tlb</TypeLibraryName>
-      <DllDataFileName>
-      </DllDataFileName>
-    </Midl>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug Packer|x64'">
-    <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
-      <WarningLevel>Level3</WarningLevel>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <ExceptionHandling>
-      </ExceptionHandling>
-      <DebugInformationFormat>
-      </DebugInformationFormat>
-      <PreprocessorDefinitions>_WIN64;_WINDOWS;STRICT;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <CallingConvention>StdCall</CallingConvention>
-    </ClCompile>
-    <Link>
-      <SubSystem>Windows</SubSystem>
-      <AdditionalDependencies>winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <UACExecutionLevel>RequireAdministrator</UACExecutionLevel>
-      <AllowIsolation>true</AllowIsolation>
-      <OutputFile>out/exe_packer_x64.exe</OutputFile>
-    </Link>
-    <ResourceCompile>
-      <Culture>0x0409</Culture>
-      <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-    </ResourceCompile>
-    <Midl>
-      <MkTypLibCompatible>false</MkTypLibCompatible>
-      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <HeaderFileName>drivercfg.h</HeaderFileName>
-      <InterfaceIdentifierFileName>drivercfg_i.c</InterfaceIdentifierFileName>
-      <ProxyFileName>drivercfg_p.c</ProxyFileName>
-      <GenerateStublessProxies>true</GenerateStublessProxies>
-      <TypeLibraryName>$(IntDir)/drivercfg.tlb</TypeLibraryName>
-      <DllDataFileName>
-      </DllDataFileName>
-    </Midl>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug Public Packer|x64'">
-    <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
-      <WarningLevel>Level3</WarningLevel>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <ExceptionHandling>
-      </ExceptionHandling>
-      <DebugInformationFormat>
-      </DebugInformationFormat>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;STRICT;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-    </ClCompile>
-    <Link>
-      <SubSystem>Windows</SubSystem>
-      <AdditionalDependencies>winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <UACExecutionLevel>RequireAdministrator</UACExecutionLevel>
-      <AllowIsolation>true</AllowIsolation>
-      <OutputFile>..\output\64\bassmididrvcfg.exe</OutputFile>
+      <OutputFile>powapack</OutputFile>
     </Link>
     <ResourceCompile>
       <Culture>0x0409</Culture>
@@ -666,137 +271,98 @@
     </Midl>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="backend\fr_pack\frpacker.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug Packer|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
-    </ClCompile>
+    <ClCompile Include="backend\brieflz\brieflz.c" />
+    <ClCompile Include="backend\fr_pack\depacker_simple.cpp" />
+    <ClCompile Include="backend\fr_pack\frpacker.cpp" />
     <ClCompile Include="backend\lzma\LzFind.c">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug Public Packer|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Public Demo|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug Packer|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Public Demo|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug Public Packer|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="backend\lzma\lzma.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug Public Packer|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Public Demo|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug Packer|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Public Demo|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug Public Packer|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="backend\lzma\LzmaEnc.c">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug Public Packer|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Public Demo|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug Packer|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Public Demo|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug Public Packer|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="backend\pack_stubs.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Public Demo|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug Public Packer|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug Packer|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Public Demo|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug Public Packer|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="backend\pack_util.cpp" />
-    <ClCompile Include="backend\pack.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug Packer|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Public Demo|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug Public Packer|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="backend\patternfind.cpp" />
+    <ClCompile Include="backend\pe_bliss\entropy.cpp" />
+    <ClCompile Include="backend\pe_bliss\file_version_info.cpp" />
+    <ClCompile Include="backend\pe_bliss\message_table.cpp" />
+    <ClCompile Include="backend\pe_bliss\pe_base.cpp" />
+    <ClCompile Include="backend\pe_bliss\pe_bound_import.cpp" />
+    <ClCompile Include="backend\pe_bliss\pe_checksum.cpp" />
+    <ClCompile Include="backend\pe_bliss\pe_debug.cpp" />
+    <ClCompile Include="backend\pe_bliss\pe_directory.cpp" />
+    <ClCompile Include="backend\pe_bliss\pe_dotnet.cpp" />
+    <ClCompile Include="backend\pe_bliss\pe_exception.cpp" />
+    <ClCompile Include="backend\pe_bliss\pe_exception_directory.cpp" />
+    <ClCompile Include="backend\pe_bliss\pe_exports.cpp" />
+    <ClCompile Include="backend\pe_bliss\pe_factory.cpp" />
+    <ClCompile Include="backend\pe_bliss\pe_imports.cpp" />
+    <ClCompile Include="backend\pe_bliss\pe_load_config.cpp" />
+    <ClCompile Include="backend\pe_bliss\pe_properties.cpp" />
+    <ClCompile Include="backend\pe_bliss\pe_properties_generic.cpp" />
+    <ClCompile Include="backend\pe_bliss\pe_rebuilder.cpp" />
+    <ClCompile Include="backend\pe_bliss\pe_relocations.cpp" />
+    <ClCompile Include="backend\pe_bliss\pe_resources.cpp" />
+    <ClCompile Include="backend\pe_bliss\pe_resource_manager.cpp" />
+    <ClCompile Include="backend\pe_bliss\pe_resource_viewer.cpp" />
+    <ClCompile Include="backend\pe_bliss\pe_rich_data.cpp" />
+    <ClCompile Include="backend\pe_bliss\pe_section.cpp" />
+    <ClCompile Include="backend\pe_bliss\pe_tls.cpp" />
+    <ClCompile Include="backend\pe_bliss\resource_bitmap_reader.cpp" />
+    <ClCompile Include="backend\pe_bliss\resource_bitmap_writer.cpp" />
+    <ClCompile Include="backend\pe_bliss\resource_cursor_icon_reader.cpp" />
+    <ClCompile Include="backend\pe_bliss\resource_cursor_icon_writer.cpp" />
+    <ClCompile Include="backend\pe_bliss\resource_data_info.cpp" />
+    <ClCompile Include="backend\pe_bliss\resource_message_list_reader.cpp" />
+    <ClCompile Include="backend\pe_bliss\resource_string_table_reader.cpp" />
+    <ClCompile Include="backend\pe_bliss\resource_version_info_reader.cpp" />
+    <ClCompile Include="backend\pe_bliss\resource_version_info_writer.cpp" />
+    <ClCompile Include="backend\pe_bliss\utils.cpp" />
+    <ClCompile Include="backend\pe_bliss\version_info_editor.cpp" />
+    <ClCompile Include="backend\pe_bliss\version_info_viewer.cpp" />
+    <ClCompile Include="backend\mupakk_main.cpp" />
+    <ClCompile Include="backend\mupakk_res.cpp" />
+    <ClCompile Include="backend\mupakk_stubs.cpp" />
     <ClCompile Include="exepacker.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Public Demo|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug Packer|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug Public Packer|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Public Demo|x64'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug Packer|x64'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug Public Packer|x64'">Create</PrecompiledHeader>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="backend\fr_pack\frpacker.hpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug Packer|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
-    </ClInclude>
+    <ClInclude Include="backend\brieflz\brieflz.h" />
+    <ClInclude Include="backend\brieflz\brieflz_hashbucket.h" />
+    <ClInclude Include="backend\brieflz\brieflz_hashchain.h" />
+    <ClInclude Include="backend\brieflz\brieflz_lazy.h" />
+    <ClInclude Include="backend\brieflz\brieflz_leparse.h" />
+    <ClInclude Include="backend\brieflz\brieflz_sliding.h" />
+    <ClInclude Include="backend\brieflz\brieflz_ssparse.h" />
+    <ClInclude Include="backend\fr_pack\frpacker.hpp" />
     <ClInclude Include="backend\lzma\LzFind.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug Public Packer|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Public Demo|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug Packer|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Public Demo|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug Public Packer|x64'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="backend\lzma\LzHash.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug Public Packer|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Public Demo|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug Packer|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Public Demo|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug Public Packer|x64'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="backend\lzma\LzmaEnc.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug Public Packer|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Public Demo|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug Packer|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Public Demo|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug Public Packer|x64'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="backend\lzma\NameMangle.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug Public Packer|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Public Demo|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug Packer|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Public Demo|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug Public Packer|x64'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="backend\lzma\Types.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug Public Packer|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Public Demo|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug Packer|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Public Demo|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug Public Packer|x64'">true</ExcludedFromBuild>
     </ClInclude>
-    <ClInclude Include="backend\pack_x86.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug Packer|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Public Demo|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug Public Packer|x64'">true</ExcludedFromBuild>
-    </ClInclude>
-    <ClInclude Include="backend\patternfind.h" />
-    <ClInclude Include="backend\xbyak\xbyak.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Public Demo|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug Public Packer|x64'">true</ExcludedFromBuild>
-    </ClInclude>
-    <ClInclude Include="backend\xbyak\xbyak_bin2hex.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Public Demo|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug Public Packer|x64'">true</ExcludedFromBuild>
-    </ClInclude>
-    <ClInclude Include="backend\xbyak\xbyak_mnemonic.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Public Demo|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug Public Packer|x64'">true</ExcludedFromBuild>
-    </ClInclude>
-    <ClInclude Include="backend\xbyak\xbyak_util.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Public Demo|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug Public Packer|x64'">true</ExcludedFromBuild>
-    </ClInclude>
+    <ClInclude Include="backend\powapack.h" />
+    <ClInclude Include="backend\xbyak\xbyak.h" />
+    <ClInclude Include="backend\xbyak\xbyak_bin2hex.h" />
+    <ClInclude Include="backend\xbyak\xbyak_mnemonic.h" />
+    <ClInclude Include="backend\xbyak\xbyak_util.h" />
     <ClInclude Include="DlgTabCtrl.h" />
     <ClInclude Include="logger.h" />
     <ClInclude Include="MainDlg.h" />
-    <ClInclude Include="mudlib.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="utf8conv.h" />
@@ -818,23 +384,11 @@
     <Image Include="res\1403843410_27247.ico" />
     <Image Include="res\compress2.ico" />
     <Image Include="res\logo.bmp" />
+    <Image Include="res\logo1.bmp" />
+    <Image Include="res\logo2.png" />
   </ItemGroup>
   <ItemGroup>
-    <MASM Include="backend\fr_pack\fr_depacker_x86.asm">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug Packer|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Public Demo|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug Public Packer|x64'">true</ExcludedFromBuild>
-    </MASM>
-    <MASM Include="backend\lzma\lzma_depacker_x86.asm">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug Public Packer|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Public Demo|Win32'">true</ExcludedFromBuild>
-      <FileType>Document</FileType>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug Packer|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Public Demo|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug Public Packer|x64'">true</ExcludedFromBuild>
-    </MASM>
+    <MASM Include="backend\fr_pack\fr_depacker_x86.asm" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

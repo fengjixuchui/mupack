@@ -9,11 +9,11 @@ using namespace std;
 #include <windows.h>
 
 #ifdef WIN32
-    #include <direct.h>
-    #include <malloc.h>
+#include <direct.h>
+#include <malloc.h>
 #else
-    #include <unistd.h>
-    #include <sys/stat.h>
+#include <unistd.h>
+#include <sys/stat.h>
 #endif
 
 #define VER         "0.3"

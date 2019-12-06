@@ -27,7 +27,7 @@ void RedirectIOToConsole()
 	int hConHandle;
 	CONSOLE_SCREEN_BUFFER_INFO coninfo;
 	// set the screen buffer to be big enough to let us scroll text
-	GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &coninfo);
+	GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE),&coninfo);
 	coninfo.dwSize.Y = MAX_CONSOLE_LINES;
 	SetConsoleScreenBufferSize(GetStdHandle(STD_OUTPUT_HANDLE),
 		coninfo.dwSize);
@@ -57,7 +57,7 @@ public:
 	DWORD Run()
 	{
 		LogMessage* message = LogMessage::GetSingleton();
-		message->DoLogMessage(L"Processing. Please wait.", ERR_SUCCESS);
+		message->DoLogMessage(L"Processing. Please wait.", LogMessage::ERR_SUCCESS);
 		compress_file(exe_path);
 		return 0;
 	}
@@ -68,7 +68,6 @@ public:
 int WINAPI _tWinMain(HINSTANCE hInstance, HINSTANCE /*hPrevInstance*/, LPTSTR lpstrCmdLine, int nCmdShow)
 {
 	int argc = __argc;
-	char** argv = __argv;
 	if (argc < 2)
 	{
 		if (!AttachConsole(ATTACH_PARENT_PROCESS))
@@ -107,9 +106,9 @@ int WINAPI _tWinMain(HINSTANCE hInstance, HINSTANCE /*hPrevInstance*/, LPTSTR lp
 				" Simply specify a Win32 EXE/DLL to compress. Its that simple.\n"
 				"\n"
 				" Usage example: mupack.exe c:\\test.exe\n"
-				"\n", argv[0]);
-
-			if (GetConsoleWindow() == GetForegroundWindow()) {
+				"\n", "mupack.exe");
+			
+			if (GetConsoleWindow() == GetForegroundWindow()){
 				INPUT ip;
 				// Set up a generic keyboard event.
 				ip.type = INPUT_KEYBOARD;
@@ -138,14 +137,14 @@ int WINAPI _tWinMain(HINSTANCE hInstance, HINSTANCE /*hPrevInstance*/, LPTSTR lp
 	GetConsoleScreenBufferInfo((HANDLE)GetStdHandle(STD_OUTPUT_HANDLE), &csbi);
 	LogMessage *messages = LogMessage::CreateInstance(NULL);
 	printf("\n");
-	CProcessThread_Console*process_thread = new CProcessThread_Console((TCHAR*)argv[1]);
+	CProcessThread_Console*process_thread = new CProcessThread_Console((TCHAR*)lpstrCmdLine);
 	process_thread->Join(INFINITE);
 	delete process_thread;
 	process_thread = NULL;
 
 
 	SetConsoleTextAttribute((HANDLE)GetStdHandle(STD_OUTPUT_HANDLE), csbi.wAttributes);
-	if (GetConsoleWindow() == GetForegroundWindow()) {
+	if (GetConsoleWindow() == GetForegroundWindow()){
 		INPUT ip;
 		// Set up a generic keyboard event.
 		ip.type = INPUT_KEYBOARD;

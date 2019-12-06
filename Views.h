@@ -1,4 +1,4 @@
-#if !defined(AFX_VIEWS_H__20020629_8D64_963C_A351_0080AD509054__INCLUDED_)
+﻿#if !defined(AFX_VIEWS_H__20020629_8D64_963C_A351_0080AD509054__INCLUDED_)
 #define AFX_VIEWS_H__20020629_8D64_963C_A351_0080AD509054__INCLUDED_
 
 #include <iostream>
@@ -6,11 +6,7 @@
 #include "utf8conv.h"
 #include "Thread.h"
 #include "logger.h"
-#ifdef _WIN64
-
-#else
-#include "backend/pack_x86.h"
-#endif
+#include "backend/powapack.h"
 //#include "svn_version.h"
 
 using namespace std;
@@ -20,18 +16,18 @@ using namespace utf8util;
 #endif // _MSC_VER > 1000
 
 
-LogMessage* LogMessage::m_Instance = 0;
-LogMessage* LogMessage::CreateInstance(HWND window)
+LogMessage* LogMessage::m_Instance = 0 ;
+LogMessage* LogMessage::CreateInstance( HWND window)
 {
 	if (0 == m_Instance)
 	{
-		m_Instance = new LogMessage();
+		m_Instance = new LogMessage( ) ;
 		m_Instance->init(window);
 	}
-	return m_Instance;
+	return m_Instance ;
 }
 
-LogMessage* LogMessage::GetSingleton() { return m_Instance; }
+LogMessage* LogMessage::GetSingleton( ){return m_Instance ;}
 
 void LogMessage::clear()
 {
@@ -39,7 +35,7 @@ void LogMessage::clear()
 	{
 		listbox.DeleteAllItems();
 	}
-
+	
 }
 
 void LogMessage::init(HWND hwnd)
@@ -62,7 +58,7 @@ void LogMessage::init(HWND hwnd)
 		listbox.SetImageList(imglist.m_hImageList, LVSIL_SMALL);
 		listbox.AddColumn(L"Description", 0);
 		listbox.SetColumnWidth(0, 300);
-		DoLogMessage(L"Welcome to mupack!", ERR_INFO);
+		DoLogMessage(L"Welcome to μpakk!", ERR_INFO);
 	}
 }
 
@@ -113,7 +109,7 @@ void LogMessage::DoLogMessage(TCHAR* message, int warnlevel)
 		switch (warnlevel)
 		{
 		case ERR_INFO:
-			SetConsoleTextAttribute(stdouthandle, WHITE_FADE_TEXT);
+			SetConsoleTextAttribute(stdouthandle,WHITE_FADE_TEXT);
 			fprintf(stdout, "%s\n", message);
 			break;
 		case ERR_WARNING:
@@ -126,7 +122,7 @@ void LogMessage::DoLogMessage(TCHAR* message, int warnlevel)
 			break;
 		case ERR_SUCCESS:
 			SetConsoleTextAttribute(stdouthandle, GREEN_TEXT);
-			fprintf(stdout, "%s\n", message);
+			fprintf(stdout,"%s\n", message);
 			break;
 		}
 	}
@@ -138,20 +134,20 @@ class CProcessThread : public CThreadImpl<CProcessThread>
 	TCHAR * exe_path;
 
 public:
-	CProcessThread(HWND hWndParent, TCHAR * path)
-		: m_hWndParent(hWndParent)
+	CProcessThread( HWND hWndParent,TCHAR * path)
+		: m_hWndParent( hWndParent )
 	{
-		exe_path = _tcsdup(path);
+		exe_path = _tcsdup( path );
 	}
 	~CProcessThread()
 	{
-		free(exe_path);
+		free( exe_path );
 	}
 
 	DWORD Run()
 	{
 		LogMessage* message = LogMessage::GetSingleton();
-		message->DoLogMessage(L"Processing. Please wait.", ERR_INFO);
+		message->DoLogMessage(L"Processing. Please wait.",LogMessage::ERR_INFO);
 		compress_file(exe_path);
 		return 0;
 	}
@@ -167,18 +163,18 @@ class CPackDlg : public CDialogImpl<CPackDlg>, public CDropFileTarget<CPackDlg>
 	CProcessThread * process_thread;
 	LogMessage * messages;
 public:
-	enum { IDD = IDD_MAIN };
-	enum { TIMERID = 1337L };
+   enum { IDD = IDD_MAIN };
+   enum { TIMERID = 1337L };
 
 
-	BEGIN_MSG_MAP(CPackDlg)
-		MESSAGE_HANDLER(WM_INITDIALOG, OnInitDialogView1)
-		MESSAGE_HANDLER(WM_TIMER, OnTimer)
-		COMMAND_ID_HANDLER(IDCANCEL, OnCancel)
-		CHAIN_MSG_MAP(CDropFileTarget<CPackDlg>)
-	END_MSG_MAP()
+   BEGIN_MSG_MAP(CPackDlg)
+	   MESSAGE_HANDLER(WM_INITDIALOG, OnInitDialogView1)
+	   MESSAGE_HANDLER(WM_TIMER, OnTimer)
+	   COMMAND_ID_HANDLER(IDCANCEL, OnCancel)
+	   CHAIN_MSG_MAP(CDropFileTarget<CPackDlg>)
+   END_MSG_MAP()
 
-	CPackDlg() : process_thread(NULL) { }
+	CPackDlg(): process_thread( NULL ) { }
 
 	LRESULT OnInitDialogView1(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/)
 	{
@@ -194,7 +190,7 @@ public:
 	{
 		if (process_thread)
 		{
-			MessageBox(L"Please wait for the current job to complete.", L"Warning", MB_ICONINFORMATION);
+			MessageBox(L"Please wait for the current job to complete.", L"Warning",MB_ICONINFORMATION);
 			return 0;
 		}
 		return 0;
@@ -202,13 +198,13 @@ public:
 
 	LRESULT OnTimer(UINT /*uMsg*/, WPARAM wParam, LPARAM /*lParam*/, BOOL& /*bHandled*/)
 	{
-		if (wParam == TIMERID)
+		if ( wParam == TIMERID )
 		{
-			if (process_thread && process_thread->Join(10) == WAIT_OBJECT_0)
+			if ( process_thread && process_thread->Join( 10 ) == WAIT_OBJECT_0 )
 			{
 				delete process_thread;
 				process_thread = NULL;
-				KillTimer(TIMERID);
+				KillTimer( TIMERID );
 				file_pathedit.SetWindowText(L"Packing job complete.");
 			}
 		}
@@ -220,22 +216,22 @@ public:
 
 	void ProcessFile(LPCTSTR lpszPath)
 	{
-		LogMessage* message = LogMessage::GetSingleton();
+	    LogMessage* message = LogMessage::GetSingleton();
 		message->clear();
 		if (process_thread)
 		{
-
-			message->DoLogMessage(L"Please wait for the current job to complete.", ERR_ERROR);
+			
+			message->DoLogMessage(L"Please wait for the current job to complete.", LogMessage::ERR_ERROR);
 			return;
 		}
 		file_pathedit.SetWindowText(lpszPath);
-		process_thread = new CProcessThread(m_hWnd, (TCHAR*)lpszPath);
-		message->DoLogMessage(L"Started packing thread.", ERR_INFO);
+		process_thread = new CProcessThread( m_hWnd, (TCHAR*)lpszPath );
+		message->DoLogMessage(L"Started packing thread.", LogMessage::ERR_INFO);
 		file_pathedit.SetWindowText(L"Packing job in progress...");
-		SetTimer(TIMERID, 100);
+		SetTimer( TIMERID, 100 );
 	}
 
-
+	
 };
 
 class CAboutDlg : public CDialogImpl<CAboutDlg>
@@ -256,13 +252,8 @@ public:
 	{
 		//CString verinf0 = SVN_REVISION;
 		CString date = "Built on " __DATE__ " at " __TIME__ " (GMT+10)";
-#ifndef  DEMO
-		CString verinfo = "mupack2 public build";
-#else // ! DEMO
-		CString verinfo = "mupack public Exetools.com build.";
-#endif
-
-
+		CString verinfo = L"μpakk private build.";
+		
 		CString greetz;
 
 		greets = GetDlgItem(IDC_CREDITS);
@@ -271,24 +262,26 @@ public:
 		version_number = GetDlgItem(IDC_MUPACKVER);
 		version_number.SetWindowText(verinfo);
 
-		greetz += "Igor Pavlov\r\n";
-		greetz += "Shigeo 'herumi' Mitsunari\r\n";
-		greetz += "Fabian 'ryg' Geisen\r\n";
-		greetz += "Chris 'kode54' Snowhill\r\n";
-		greetz += "Olav '8bitbubsy' S�rensen\r\n";
-		greetz += "Lars 'zao' Viklund\r\n";
-		greetz += "Janne 'Case' Hyv�rinen\r\n";
-		greetz += "Jo�o Marques\r\n";
-		greetz += "Duncan 'Mr. eXoDia' Ogilvie and the x64dbg team\r\n";
-		greetz += "The reversing group on Skype ;) \r\n";
+		greetz += L"Jake 'ferris' Taylor\r\n";
+		greetz += L"Bartosz Wójcik\r\n";
+		greetz += L"Benjamin 'BeRo' Rosseaux \r\n";
+		greetz += L"Chris 'kode54' Snowhill\r\n";
+		greetz += L"Olav '8bitbubsy' Sørensen\r\n";
+		greetz += L"Lars 'zao' Viklund\r\n";
+		greetz += L"Janne 'Case' Hyvärinen\r\n";
+		greetz += L"João Marques\r\n";
+		greetz += L"Igor Pavlov\r\n";
+		greetz += L"Shigeo 'herumi' Mitsunari\r\n";
+		greetz += L"Fabian 'ryg' Geisen\r\n";
+		greetz += L"Duncan 'Mr. eXoDia' Ogilvie and the x64dbg team\r\n";
+		greetz += L"The reversing group on Skype ;) \r\n";
 
 
 
 		greets.SetWindowText(greetz);
-		website.SubclassWindow(GetDlgItem(IDC_WEBSITE));
-		website.SetHyperLink(_T("http://forum.exetools.com/showthread.php?t=17028"));
 		return TRUE;
 	}
 };
 
 #endif // !defined(AFX_VIEWS_H__20020629_8D64_963C_A351_0080AD509054__INCLUDED_)
+

@@ -11,10 +11,9 @@ extern "C"  unsigned char* compress_fr(unsigned char* in_data, int in_size, int*
 	if (!in_size) return NULL;
 	size_t outsize = 0;
 	CCAPackerBackEnd pbe;
-	PackerFrontEnd *pfe = NULL;
-	pfe = new BestPackerFrontEnd(&pbe);
-	unsigned OutLimit = in_size + (in_size / 8) + 4096 + 512;
-	unsigned char* OutImage = (unsigned char*)malloc(OutLimit + 512);
+	PackerFrontEnd *pfe = new BestPackerFrontEnd(&pbe);
+	unsigned OutLimit = in_size + (in_size / 8) + 8192;
+	unsigned char* OutImage = (unsigned char*)malloc(OutLimit);
 	outsize = pfe->Pack(in_data, in_size, OutImage, 0, 0);
 	if (!outsize)
 	{

@@ -10,6 +10,12 @@
 
 #pragma once
 
+// Change these values to use different versions
+#define WINVER		0x0500
+#define _WIN32_WINNT	0x0501
+#define _WIN32_IE	0x0501
+#define _RICHEDIT_VER	0x0200
+
 #include <windows.h>
 #include <atlbase.h>
 #include <atlapp.h>
@@ -20,7 +26,13 @@
 #include <atldlgs.h>
 #include <atlcrack.h>
 #include <atlctrlx.h>
-
+#include <iostream>
+#include <fstream>
+#include <vector>
+#include <string>
+#include "backend/pe_bliss/pe_bliss.h"
+#include "backend/pe_bliss/pe_bliss_resources.h"
+#include "backend/brieflz/brieflz.h"
 extern CAppModule _Module;
 
 #include <atlwin.h>
