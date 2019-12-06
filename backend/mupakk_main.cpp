@@ -91,6 +91,7 @@ extern sU32 KKrunchyDepacker(sU8* dst, const sU8* src);
 int compress_file(TCHAR* filename)
 {
 	int file_alignment = 512;
+	TCHAR log_info[256] = { 0 };
 
 	LogMessage* message = LogMessage::GetSingleton();
 	message->DoLogMessage(L"Opening file...", LogMessage::ERR_INFO);
@@ -129,14 +130,13 @@ int compress_file(TCHAR* filename)
 	std::string raw_bytes;
 	//Current section index
 	unsigned long current_section = 0;
-
-
-
+	DWORD codeStart = image.get_base_of_code();
+	section_list& sections = image.get_image_sections();
+/*
 	DWORD codeStart = image.get_base_of_code();
 	section_list& sections = image.get_image_sections();
 	std::string packed_sections_info;
 	packed_sections_info.resize(sections.size() * sizeof(compdata));
-	unsigned long current_section = 0;
 
 	for (auto& s : sections)
 	{
@@ -186,17 +186,22 @@ int compress_file(TCHAR* filename)
 		current_section++;
 	}
 
-
+	*/
 	
 	for(auto &s : sections)
 	{
+
+		wsprintf(log_info, L"Copying %s section at 0x%04X.........", s.get_name(), s.get_virtual_address());
+		message->DoLogMessage(log_info, LogMessage::ERR_INFO);
+
+
 		size_t size = s.get_size_of_raw_data();
 		size_t aligned_ = s.get_aligned_virtual_size(image.get_section_alignment()) - size;
 		if (codeStart >= s.get_virtual_address() && codeStart < s.get_virtual_address() + size)
 		{
-			unsigned char* origdata = (unsigned char*)s.get_raw_data().data();
-			x86_filter_enc(origdata, size);
-			stubcode_ptr.code_locsz = size;
+			//unsigned char* origdata = (unsigned char*)s.get_raw_data().data();
+			//x86_filter_enc(origdata, size);
+			//stubcode_ptr.code_locsz = size;
 		}
 		raw_bytes += s.get_raw_data();
 		raw_bytes.insert(raw_bytes.end(), aligned_, '\0');
@@ -213,6 +218,10 @@ int compress_file(TCHAR* filename)
 	//do compression
 	unsigned char* origdata = (unsigned char*)raw_bytes.data();
 	DWORD compressed_size;
+
+	wsprintf(log_info, L"Compressing PE sections.........");
+	message->DoLogMessage(log_info, LogMessage::ERR_INFO);
+
 	unsigned char *compdata = compress_fr(origdata, datapcksize,&compressed_size);
 	out_buf.resize(compressed_size);
 	out_buf.assign(&compdata[0], &compdata[0] + compressed_size);
@@ -228,23 +237,31 @@ int compress_file(TCHAR* filename)
 	stubcode_ptr.sizepacked = compressed_size;
 	stubcode_ptr.ImageBase = image.get_image_base_32();	
 
+	wsprintf(log_info, L"Compressed sections in 0x%04X bytes...", compressed_size);
+	message->DoLogMessage(log_info, LogMessage::ERR_INFO);
+	wsprintf(log_info, L"PE imagebase is 0x%04X...", stubcode_ptr.ImageBase);
+	message->DoLogMessage(log_info, LogMessage::ERR_INFO);
+
 	std::auto_ptr<tls_info> tls;
 	if (image.has_tls())
 	{
-		std::cout << "Reading TLS..." << std::endl;
+		wsprintf(log_info, L"Reading TLS info...");
+		message->DoLogMessage(log_info, LogMessage::ERR_INFO);
 		tls.reset(new tls_info(get_tls_info(image)));
 	}
 	exported_functions_list exports;
 	export_info exports_info;
 	if (image.has_exports())
 	{
-		std::cout << "Reading exports..." << std::endl;
+		wsprintf(log_info, L"Reading exports info...");
+		message->DoLogMessage(log_info, LogMessage::ERR_INFO);
 		exports = get_exported_functions(image, exports_info);
 	}
 	std::auto_ptr<image_config_info> load_config;
 	if (image.has_config())
 	{
-		std::cout << "Reading Image Load Config..." << std::endl;
+		wsprintf(log_info, L"Reading load config info...");
+		message->DoLogMessage(log_info, LogMessage::ERR_INFO);
 
 		try
 		{
@@ -253,7 +270,8 @@ int compress_file(TCHAR* filename)
 		catch (const pe_exception& e)
 		{
 			image.remove_directory(IMAGE_DIRECTORY_ENTRY_LOAD_CONFIG);
-			std::cout << "Error reading load config directory: " << e.what() << std::endl;
+			wsprintf(log_info, L"Error reading load config info...");
+			message->DoLogMessage(log_info, LogMessage::ERR_ERROR);
 		}
 	}
 	else
@@ -293,10 +311,15 @@ int compress_file(TCHAR* filename)
 		tls->set_index_rva(pe_base::rva_from_section_offset(unpacker_added_section, tls_offset));
 	}
 
+	
+
 	unsigned char* stubcode_data = build_stub(image.get_ep(), image.get_image_base_32(), unpacker_added_section.get_virtual_address(), &stubcode_size);
 	unpacker_added_section.get_raw_data().resize(stubcode_size);
 	unpacker_added_section.get_raw_data() = std::string(reinterpret_cast<const char*>(stubcode_data), stubcode_size);
 	free(stubcode_data);
+
+	wsprintf(log_info, L"Building shellcode at 0x%04X, using 0x%04X bytes...", unpacker_added_section.get_virtual_address(),stubcode_size);
+	message->DoLogMessage(log_info, LogMessage::ERR_INFO);
 
 	//Build loader imports
 	import_library kernel32;
@@ -316,6 +339,11 @@ int compress_file(TCHAR* filename)
 	kernel32.add_import(func); //Add it, too
 	//Set loader IAT RVA to offset in loader header
 	int imports_offset = get_bootloadersz() + offsetof(stubcode, loadlib);
+
+	wsprintf(log_info, L"Building IAT at 0x%04X", imports_offset);
+	message->DoLogMessage(log_info, LogMessage::ERR_INFO);
+
+
 	DWORD load_library_address_rva = pe_base::rva_from_section_offset(unpacker_added_section, imports_offset);
 	kernel32.set_rva_to_iat(load_library_address_rva);
 	imported_functions_list imports;
@@ -330,6 +358,10 @@ int compress_file(TCHAR* filename)
 		settings.enable_auto_strip_last_section(false);
 	rebuild_imports(image, imports, unpacker_added_section, settings);
 
+
+	wsprintf(log_info, L"Building resources.....");
+	message->DoLogMessage(log_info, LogMessage::ERR_INFO);
+
 	if (!new_root_dir.get_entry_list().empty())
 		rebuild_resources(image, new_root_dir, unpacker_added_section, unpacker_added_section.get_raw_data().size());
 
@@ -339,7 +371,8 @@ int compress_file(TCHAR* filename)
 	
 	if (tls.get())
 	{
-		std::cout << "Rebuilding TLS..." << std::endl;
+		wsprintf(log_info, L"Rebuilding TLS directory.....");
+		message->DoLogMessage(log_info, LogMessage::ERR_INFO);
 
 		//Reference to unpacker raw section data
 		//Only unpacker body is located there yet
@@ -355,6 +388,9 @@ int compress_file(TCHAR* filename)
 		//If TLS has callbacks...
 		if (!tls->get_tls_callbacks().empty())
 		{
+			wsprintf(log_info, L"Rebuilding TLS callbacks.....");
+			message->DoLogMessage(log_info, LogMessage::ERR_INFO);
+
 			//It is necessary to reserve memory
 			//for original TLS callback addresses
 			//Plus 1 cell for null DWORD
@@ -410,7 +446,8 @@ int compress_file(TCHAR* filename)
 
 	if (image.has_reloc())
 	{
-		std::cout << "Creating relocations..." << std::endl;
+		wsprintf(log_info, L"Building relocations.....");
+		message->DoLogMessage(log_info, LogMessage::ERR_INFO);
 
 		//Create relocation table list and a table
 		relocation_table_list reloc_tables;
@@ -433,6 +470,8 @@ int compress_file(TCHAR* filename)
 		//If a file has TLS
 		if (tls.get())
 		{
+			wsprintf(log_info, L"Building TLS directory/callback relocations.....");
+			message->DoLogMessage(log_info, LogMessage::ERR_INFO);
 			//Calculate offset to TLS structure
 			//relative to the beginning of second section
 			DWORD tls_directory_offset = image.get_directory_rva(IMAGE_DIRECTORY_ENTRY_TLS)
@@ -471,7 +510,8 @@ int compress_file(TCHAR* filename)
 
 	if (image.has_exports())
 	{
-		std::cout << "Repacking exports..." << std::endl;
+		wsprintf(log_info, L"Rebuilding exports.....");
+		message->DoLogMessage(log_info, LogMessage::ERR_INFO);
 		rebuild_exports(image, exports_info, exports, unpacker_added_section, unpacker_added_section.get_raw_data().size(), true);
 	}
 
@@ -488,6 +528,8 @@ int compress_file(TCHAR* filename)
 	if (!new_pe_file)
 	{
 		//If failed to create file - display an error message
+		wsprintf(log_info, L"Failed to rebuild PE file!");
+		message->DoLogMessage(log_info, LogMessage::ERR_ERROR);
 		return -1;
 	}
 	rebuild_pe(image, new_pe_file, true, false);

@@ -304,7 +304,7 @@ extern "C"
 	{
 		DWORD* fixup = (DWORD*)&p->mentry;
 		DWORD* fixup_end = (DWORD*)&p->OriginalImports;
-		//while (fixup < fixup_end) *fixup++ += base_offset;
+		while (fixup < fixup_end) *fixup++ += base_offset;
 		DWORD OldP = NULL;
 		tVirtualAlloc valloc = (tVirtualAlloc)p->virtualalloc;
 		tVirtualProtect vprotect = (tVirtualProtect)p->virtualprotect;
@@ -316,9 +316,9 @@ extern "C"
 		typedef int(_stdcall* tdecomp) (PVOID, PVOID);
 		tdecomp decomp = (tdecomp)p->depacker;
 		decomp((LPVOID)p->packed_ptr, (unsigned char*)input);
-		//typedef int(_stdcall* tdefilt) (PVOID, DWORD);
-		//tdefilt codefilt = (tdefilt)p->codefilter;
-	//	codefilt(ucompd, p->code_locsz);
+		typedef int(_stdcall* tdefilt) (PVOID, DWORD);
+		tdefilt codefilt = (tdefilt)p->codefilter;
+		//codefilt((LPVOID)p->packed_ptr, p->code_locsz);
 		vfree(input, 0, MEM_RELEASE);
 		typedef void(_stdcall* trestore)(LPVOID, LPVOID);
 		trestore restore = (trestore)p->restore;
