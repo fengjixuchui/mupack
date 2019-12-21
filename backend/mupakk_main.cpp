@@ -91,7 +91,7 @@ extern sU32 KKrunchyDepacker(sU8* dst, const sU8* src);
 int compress_file(TCHAR* filename)
 {
 	int file_alignment = 512;
-	TCHAR log_info[256] = { 0 };
+	TCHAR log_info[512] = { 0 };
 
 	LogMessage* message = LogMessage::GetSingleton();
 	message->DoLogMessage(L"Opening file...", LogMessage::ERR_INFO);
@@ -190,8 +190,8 @@ int compress_file(TCHAR* filename)
 	
 	for(auto &s : sections)
 	{
-
-		wsprintf(log_info, L"Copying %s section at 0x%04X.........", s.get_name(), s.get_virtual_address());
+		wstring str = Mud_String::ansitoutf16(s.get_name());
+		wsprintf(log_info, L"Copying %s section at 0x%04X.........", str.c_str(), image.get_image_base_32() + s.get_virtual_address());
 		message->DoLogMessage(log_info, LogMessage::ERR_INFO);
 
 
