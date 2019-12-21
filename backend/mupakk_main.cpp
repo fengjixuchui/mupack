@@ -324,19 +324,18 @@ int compress_file(TCHAR* filename)
 	//Build loader imports
 	import_library kernel32;
 	imported_function func;
+
+	const char* thunks[] = { "LoadLibraryA", "GetProcAddress","VirtualAlloc","VirtualFree", "VirtualProtect", "RtlMoveMemory",NULL };
 	kernel32.set_name("kernel32.dll"); //Set library name
-	func.set_name("LoadLibraryA"); //Its name
-	kernel32.add_import(func); //Add it to the library
-	func.set_name("GetProcAddress");
-	kernel32.add_import(func); //Add it, too
-	func.set_name("VirtualAlloc");
-	kernel32.add_import(func); //Add it, too
-	func.set_name("VirtualFree");
-	kernel32.add_import(func); //Add it, too
-	func.set_name("VirtualProtect");
-	kernel32.add_import(func); //Add it, too
-	func.set_name("RtlMoveMemory");
-	kernel32.add_import(func); //Add it, too
+	for (int i = 0; i < 7; i++)
+	{
+		if (thunks[i] != NULL)
+		{
+			func.set_name(thunks[i]); //Its name
+			kernel32.add_import(func);
+		}
+		
+	}
 	//Set loader IAT RVA to offset in loader header
 	int imports_offset = get_bootloadersz() + offsetof(stubcode, loadlib);
 
@@ -434,7 +433,6 @@ int compress_file(TCHAR* filename)
 
 		//Add data used to initialize local thread memory to the section
 		unpacker_added_section.get_raw_data() += tls->get_raw_data();
-		//Now set "coderpub" section virtual size
 		//taking into account SizeOfZeroFill of TLS field
 		image.set_section_virtual_size(unpacker_added_section, data.size() + tls->get_size_of_zero_fill());
 		//At last, strip unnecessary null bytes at the end of the section
