@@ -473,5 +473,7 @@ int compress_file(TCHAR* filename)
 		return -1;
 	}
 	rebuild_pe(image, new_pe_file, true, false);
+    wsprintf(log_info, L"File packed successfully!");
+    message->DoLogMessage(log_info, LogMessage::ERR_INFO);
 	return 1;
 }
