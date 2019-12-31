@@ -337,9 +337,9 @@ extern "C"
 		IMAGE_DATA_DIRECTORY* resource_dir= (IMAGE_DATA_DIRECTORY*)(offset_to_directories + sizeof(IMAGE_DATA_DIRECTORY) * IMAGE_DIRECTORY_ENTRY_RESOURCE);
 		resource_dir->Size = p->OriginalResourcesSize;
 		resource_dir->VirtualAddress = p->OriginalResources;
-	//	IMAGE_DATA_DIRECTORY* import_dir = (IMAGE_DATA_DIRECTORY*)(offset_to_directories + sizeof(IMAGE_DATA_DIRECTORY) * IMAGE_DIRECTORY_ENTRY_IAT);
-	//	import_dir->Size = p->OriginalImportsSize;
-	//	import_dir->VirtualAddress = p->OriginalImports;
+		IMAGE_DATA_DIRECTORY* import_dir = (IMAGE_DATA_DIRECTORY*)(offset_to_directories + sizeof(IMAGE_DATA_DIRECTORY) * IMAGE_DIRECTORY_ENTRY_IAT);
+		import_dir->Size = p->OriginalImportsSize;
+		import_dir->VirtualAddress = p->OriginalImports;
 		vprotect((LPVOID)p->ImageBase, pNTHeader->FileHeader.SizeOfOptionalHeader, old_protect, &old_protect);
 
 		
