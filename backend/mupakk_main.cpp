@@ -200,9 +200,10 @@ int compress_file(TCHAR *filename) {
     size_t size = s.get_size_of_raw_data();
     if (codeStart >= s.get_virtual_address() &&
         codeStart < s.get_virtual_address() + size) {
-      // unsigned char* origdata = (unsigned char*)s.get_raw_data().data();
-      // x86_filter_enc(origdata, size);
-      // stubcode_ptr.code_locsz = size;
+       unsigned char* origdata = (unsigned char*)s.get_raw_data().data();
+       x86_filter_enc(origdata, size);
+       stubcode_ptr.code_locsz = size;
+       stubcode_ptr.code_loc = s.get_virtual_address();
     }
     raw_bytes += s.get_virtual_data(image.get_section_alignment());
   }

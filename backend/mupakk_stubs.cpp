@@ -299,7 +299,7 @@ static void depack_fnc(stubcode *p, INT_PTR base_offset) {
   decomp((LPVOID)p->packed_ptr, (unsigned char *)input);
   typedef int(_stdcall * tdefilt)(PVOID, DWORD);
   tdefilt codefilt = (tdefilt)p->codefilter;
-  // codefilt((LPVOID)p->packed_ptr, p->code_locsz);
+  codefilt((LPVOID)(p->code_loc+p->ImageBase), p->code_locsz);
   vfree(input, 0, MEM_RELEASE);
   typedef void(_stdcall * trestore)(LPVOID, LPVOID);
   trestore restore = (trestore)p->restore;

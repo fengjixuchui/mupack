@@ -41,6 +41,7 @@ typedef struct stubcode
 	DWORD OriginalRelocationsSize;
 	DWORD OriginalLoadConfig;
 	DWORD code_locsz;
+    DWORD code_loc;
 	DWORD tls_callbackold;
 	DWORD TlsCallbackNew;
 	DWORD IsDepacked;
