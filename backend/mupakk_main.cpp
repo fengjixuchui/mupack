@@ -81,6 +81,18 @@ size_t x86_filter_enc(BYTE *data, size_t size) {
 
 extern sU32 KKrunchyDepacker(sU8 *dst, const sU8 *src);
 
+void MD5(BYTE *data, ULONG len, BYTE *hash_data) {
+  HCRYPTPROV hProv = 0;
+  HCRYPTPROV hHash = 0;
+  CryptAcquireContext(&hProv, NULL, NULL, PROV_RSA_FULL, 0);
+  CryptCreateHash(hProv, CALG_MD5, 0, 0, &hHash);
+  CryptHashData(hHash, data, len, 0);
+  DWORD cbHash = 16;
+  CryptGetHashParam(hHash, HP_HASHVAL, hash_data, &cbHash, 0);
+  CryptDestroyHash(hHash);
+  CryptReleaseContext(hProv, 0);
+}
+
 int compress_file(TCHAR *filename) {
   int file_alignment = 512;
   TCHAR log_info[512] = {0};
@@ -195,6 +207,10 @@ int compress_file(TCHAR *filename) {
     raw_bytes += s.get_virtual_data(image.get_section_alignment());
   }
   int datapcksize = raw_bytes.size();
+
+  BYTE md5_orig[16] = {0};
+  BYTE md5_depacked[16] = {0};
+
   // New section
   section pak_datasection;
   pak_datasection.set_name("UPAKK1");
@@ -207,6 +223,8 @@ int compress_file(TCHAR *filename) {
   unsigned char *origdata = (unsigned char *)raw_bytes.data();
   DWORD compressed_size;
 
+  MD5(origdata, datapcksize, md5_orig);
+
   wsprintf(log_info, L"Compressing PE sections.........");
   message->DoLogMessage(log_info, LogMessage::ERR_INFO);
 
@@ -216,7 +234,10 @@ int compress_file(TCHAR *filename) {
   out_buf.assign(&compdata[0], &compdata[0] + compressed_size);
   unsigned char *depack = (unsigned char *)malloc(datapcksize);
   KKrunchyDepacker(depack, compdata);
-  if (memcmp(depack, origdata, datapcksize) != 0) {
+
+  MD5(depack, datapcksize, md5_depacked);
+
+  if (memcmp(md5_depacked, md5_orig, 0x10) != 0) {
     message->DoLogMessage(L"Packed data not equal!", LogMessage::ERR_ERROR);
   }
   free(depack);
