@@ -237,13 +237,16 @@ int compress_file(TCHAR *filename) {
   KKrunchyDepacker(depack, compdata);
 
   MD5(depack, datapcksize, md5_depacked);
+  free(depack);
+  free(compdata);
 
   if (memcmp(md5_depacked, md5_orig, 0x10) != 0) {
     message->DoLogMessage(L"Packed data not equal!", LogMessage::ERR_ERROR);
+    return 0;
   }
-  free(depack);
+ 
 
-  free(compdata);
+  
   stubcode_ptr.sizeunpacked = datapcksize;
   stubcode_ptr.sizepacked = compressed_size;
   stubcode_ptr.ImageBase = image.get_image_base_32();

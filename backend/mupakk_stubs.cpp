@@ -280,6 +280,8 @@ static size_t x86_filter(BYTE *data, size_t size) {
 MARK_END_OF_FUNCTION(x86_filter)
 
 static void depack_fnc(stubcode *p, INT_PTR base_offset) {
+  if (p->IsDepacked == 1)
+    return;
   DWORD *fixup = (DWORD *)&p->mentry;
   DWORD *fixup_end = (DWORD *)&p->OriginalImports;
   while (fixup < fixup_end)
@@ -305,6 +307,8 @@ static void depack_fnc(stubcode *p, INT_PTR base_offset) {
   trestore restore = (trestore)p->restore;
   restore(p, (LPVOID)base_offset);
 
+  p->IsDepacked = 1;
+
   DWORD old_protect;
   PIMAGE_DOS_HEADER pDosHeader = (PIMAGE_DOS_HEADER)p->ImageBase;
   PIMAGE_NT_HEADERS pNTHeader =
@@ -328,6 +332,7 @@ static void depack_fnc(stubcode *p, INT_PTR base_offset) {
   import_dir->VirtualAddress = p->OriginalImports;
   vprotect((LPVOID)p->ImageBase, pNTHeader->FileHeader.SizeOfOptionalHeader,
            old_protect, &old_protect);
+ 
 }
 MARK_END_OF_FUNCTION(depack_fnc)
 }
@@ -341,11 +346,13 @@ code.ret();
 class Bootstrapper : public Xbyak::CodeGenerator {
 public:
   Bootstrapper(int packer_struct, int main_loadcode, int OEP) {
+    //altered by relocation
     mov(ebx, 0);
     jmp(".tls");
+    //TLS callback
     ret(0xC);
     L(".tls");
-    push(ebx);
+    push(ebx); //offset made by relocation
     lea(eax, ptr[ebx + packer_struct]);
     push(eax);
     lea(eax, ptr[ebx + main_loadcode]);

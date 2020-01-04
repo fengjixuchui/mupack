@@ -85,6 +85,8 @@ public:
 
 		UIAddChildWindowContainer(m_hWnd);
 
+		
+
 		return TRUE;
 	}
 

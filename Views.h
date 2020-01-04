@@ -160,6 +160,7 @@ class CPackDlg : public CDialogImpl<CPackDlg>, public CDropFileTarget<CPackDlg>
 	const TCHAR * list_name;
 	CListViewCtrl listbox;
 	CEdit file_pathedit;
+        CComboBox w;
 	CProcessThread * process_thread;
 	LogMessage * messages;
 public:
@@ -178,6 +179,13 @@ public:
 
 	LRESULT OnInitDialogView1(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/)
 	{
+          w = GetDlgItem(IDC_COMPMETHOD);
+          w.AddString(L"aplib");
+          w.AddString(L"BriefLZ");
+          w.AddString(L"kkrunchy");
+          w.AddString(L"LZMA");
+          w.SetCurSel(0);
+
 		file_pathedit = GetDlgItem(IDC_PATH);
 		file_pathedit.SetWindowText(L"I'm gonna wreck it!");
 		messages = LogMessage::CreateInstance(m_hWnd);
