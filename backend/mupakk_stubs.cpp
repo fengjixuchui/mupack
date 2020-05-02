@@ -349,6 +349,7 @@ static void depack_fnc(stubcode *p, INT_PTR base_offset) {
           (PIMAGE_TLS_CALLBACK*)(p->TlsCallbackNew + p->ImageBase);
       (*callback_bckup)((LPVOID)p->ImageBase, DLL_PROCESS_ATTACH, NULL);
   }
+  p->IsDepacked = 1;
 }
 MARK_END_OF_FUNCTION(depack_fnc)
 }

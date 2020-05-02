@@ -383,7 +383,7 @@ int compress_file(TCHAR *filename) {
       relocation_table table;
       table.set_rva(unpacker_added_section.get_virtual_address());
       table.add_relocation(
-          relocation_entry(unpacker_added_section.get_virtual_address() + 1,
+          relocation_entry(0x01,
                            IMAGE_REL_BASED_HIGHLOW));
       reloc_tables.push_back(table);
     }
