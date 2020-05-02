@@ -37,6 +37,9 @@ typedef struct stubcode {
   DWORD restore;
   DWORD codefilter;
   DWORD depacker;
+  DWORD ImageBase;
+  DWORD packed_ptr;
+  DWORD code_loc;
   DWORD OriginalImports;
   DWORD OriginalImportsSize;
   DWORD OriginalResources;
@@ -45,12 +48,9 @@ typedef struct stubcode {
   DWORD OriginalRelocationsSize;
   DWORD OriginalLoadConfig;
   DWORD code_locsz;
-  DWORD code_loc;
   DWORD tls_callbackold;
   DWORD TlsCallbackNew;
   DWORD IsDepacked;
-  DWORD ImageBase;
-  DWORD packed_ptr;
   DWORD sizepacked;
   DWORD sizeunpacked;
   DWORD tls_index;
