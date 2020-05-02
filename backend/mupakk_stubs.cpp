@@ -136,7 +136,7 @@ DLL_PROCESS_ATTACH, NULL); *callback_bckup = *callback; callback_bckup++;
 MARK_END_OF_FUNCTION(mentry_fr)
 */
 
-static void restore(stubcode *p, INT_PTR base_offset) {
+static  void _stdcall restore(stubcode *p, INT_PTR base_offset) {
   typedef FARPROC(WINAPI * tGetProcAddress)(HINSTANCE, LPCSTR);
   typedef HINSTANCE(WINAPI * tLoadLibraryA)(LPCSTR);
   tGetProcAddress getproc = (tGetProcAddress)p->getproc;
@@ -170,43 +170,39 @@ static void restore(stubcode *p, INT_PTR base_offset) {
   }
 
   if (p->OriginalRelocationsSize) {
-    DWORD prelocs = p->ImageBase + p->OriginalRelocations;
-    DWORD prelocs_end = prelocs + p->OriginalRelocationsSize;
-    while (prelocs < prelocs_end) {
-      PIMAGE_BASE_RELOCATION preloc = (PIMAGE_BASE_RELOCATION)prelocs;
-      DWORD dwPageAddr = p->ImageBase + preloc->VirtualAddress;
-      DWORD dwBlockSize = preloc->SizeOfBlock;
-      for (DWORD i = 4; i < (dwBlockSize >> 1); i++) {
-        DWORD dwOffset = *(WORD *)(prelocs + (i << 1));
-        DWORD dwType = (dwOffset >> 12) & 0xf;
-        DWORD dwRPtr = dwPageAddr + (dwOffset & 0xfff);
-        if (dwType == IMAGE_REL_BASED_HIGHLOW) {
-          DWORD dwRDat = *(DWORD *)dwRPtr;
-          dwRDat = dwRDat + base_offset;
-          *(DWORD *)dwRPtr = dwRDat;
-        }
+      DWORD prelocs = p->ImageBase + p->OriginalRelocations;
+      DWORD prelocs_end = prelocs + p->OriginalRelocationsSize;
+      while (prelocs < prelocs_end) {
+          PIMAGE_BASE_RELOCATION preloc = (PIMAGE_BASE_RELOCATION)prelocs;
+          DWORD dwPageAddr = p->ImageBase + preloc->VirtualAddress;
+          DWORD dwBlockSize = preloc->SizeOfBlock;
+          for (DWORD i = 4; i < (dwBlockSize >> 1); i++) {
+              DWORD dwOffset = *(WORD*)(prelocs + (i << 1));
+              DWORD dwType = (dwOffset >> 12) & 0xf;
+              DWORD dwRPtr = dwPageAddr + (dwOffset & 0xfff);
+              if (dwType == IMAGE_REL_BASED_HIGHLOW) {
+                  DWORD dwRDat = *(DWORD*)dwRPtr;
+                  dwRDat = dwRDat + base_offset;
+                  *(DWORD*)dwRPtr = dwRDat;
+              }
+          }
+          prelocs += dwBlockSize;
       }
-      prelocs += dwBlockSize;
-    }
   }
 
-  if (p->tls_callbackold) {
-    p->tls_callbackold += p->ImageBase;
-    p->TlsCallbackNew += p->ImageBase;
-    PIMAGE_TLS_CALLBACK *callback = (PIMAGE_TLS_CALLBACK *)p->tls_callbackold;
-    PIMAGE_TLS_CALLBACK *callback_bckup =
-        (PIMAGE_TLS_CALLBACK *)p->TlsCallbackNew;
-    if (callback) {
+  /*
+  if(p->tls_oldindexrva)
+      *(DWORD*)(p->tls_oldindexrva + p->ImageBase) = p->tls_index;
+  if (p->TlsCallbackNew) {
+      int offset = 0;
+    PIMAGE_TLS_CALLBACK *callback = (PIMAGE_TLS_CALLBACK *)p->tls_callbackold + p->ImageBase;
       while (*callback) {
-        (*callback)((LPVOID)p->ImageBase, DLL_PROCESS_ATTACH, NULL);
-        *callback_bckup = *callback;
-        callback_bckup++;
+          PIMAGE_TLS_CALLBACK* callback_tmp = callback;
+        (*callback_tmp)((LPVOID)p->ImageBase, DLL_PROCESS_ATTACH, NULL);
         callback++;
       }
-    }
   }
-
-  return;
+  */
 }
 MARK_END_OF_FUNCTION(restore)
 
@@ -287,33 +283,37 @@ static void depack_fnc(stubcode *p, INT_PTR base_offset) {
   while (fixup < fixup_end)
     *fixup++ += base_offset;
   DWORD OldP = NULL;
-  tVirtualAlloc valloc = (tVirtualAlloc)p->virtualalloc;
-  tVirtualProtect vprotect = (tVirtualProtect)p->virtualprotect;
-  tVirtualFree vfree = (tVirtualFree)p->virtualfree;
-  tRtlMoveMemory memcp1 = (tRtlMoveMemory)p->rtlmovemem;
-  unsigned char *input =
-      (unsigned char *)valloc(NULL, p->sizepacked, MEM_COMMIT, PAGE_READWRITE);
-  memcp1(input, (LPVOID)p->packed_ptr, p->sizepacked);
-  vprotect((LPVOID)p->packed_ptr, p->sizeunpacked, PAGE_EXECUTE_READWRITE,
-           &OldP);
-  typedef int(_stdcall * tdecomp)(PVOID, PVOID);
-  tdecomp decomp = (tdecomp)p->depacker;
-  decomp((LPVOID)p->packed_ptr, (unsigned char *)input);
-  typedef int(_stdcall * tdefilt)(PVOID, DWORD);
+ 
+  typedef int(_stdcall* tdefilt)(PVOID, DWORD);
   tdefilt codefilt = (tdefilt)p->codefilter;
-  codefilt((LPVOID)(p->code_loc+p->ImageBase), p->code_locsz);
-  vfree(input, 0, MEM_RELEASE);
+  typedef int(_stdcall* tdecomp)(PVOID, PVOID);
+  tdecomp decomp = (tdecomp)p->depacker;
+
+
+  unsigned char *input =
+      (unsigned char *)p->virtualalloc(NULL, p->sizepacked, MEM_COMMIT, PAGE_READWRITE);
+  p->rtlmovemem(input, (LPVOID)p->packed_ptr, p->sizepacked);
+  p->virtualprotect((LPVOID)p->packed_ptr, p->sizeunpacked, PAGE_EXECUTE_READWRITE,
+           &OldP);
+
+  decomp((LPVOID)p->packed_ptr, (unsigned char *)input);
+  
+  codefilt((LPVOID)(p->packed_ptr), p->code_locsz);
+  p->virtualfree(input, 0, MEM_RELEASE);
   typedef void(_stdcall * trestore)(LPVOID, LPVOID);
   trestore restore = (trestore)p->restore;
   restore(p, (LPVOID)base_offset);
 
-  p->IsDepacked = 1;
+
+  
+
+  
 
   DWORD old_protect;
   PIMAGE_DOS_HEADER pDosHeader = (PIMAGE_DOS_HEADER)p->ImageBase;
   PIMAGE_NT_HEADERS pNTHeader =
       (PIMAGE_NT_HEADERS)((DWORD)pDosHeader + (DWORD)pDosHeader->e_lfanew);
-  vprotect((LPVOID)p->ImageBase, pNTHeader->FileHeader.SizeOfOptionalHeader,
+  p->virtualprotect((LPVOID)p->ImageBase, pNTHeader->FileHeader.SizeOfOptionalHeader,
            PAGE_READWRITE, &old_protect);
   DWORD offset_to_directories =
       p->ImageBase + pDosHeader->e_lfanew + sizeof(IMAGE_NT_HEADERS32) -
@@ -330,9 +330,25 @@ static void depack_fnc(stubcode *p, INT_PTR base_offset) {
                                    IMAGE_DIRECTORY_ENTRY_IAT);
   import_dir->Size = p->OriginalImportsSize;
   import_dir->VirtualAddress = p->OriginalImports;
-  vprotect((LPVOID)p->ImageBase, pNTHeader->FileHeader.SizeOfOptionalHeader,
+  p->virtualprotect((LPVOID)p->ImageBase, pNTHeader->FileHeader.SizeOfOptionalHeader,
            old_protect, &old_protect);
- 
+
+  if (p->tls_oldindexrva)
+      *(DWORD*)(p->tls_oldindexrva + p->ImageBase) = p->tls_index;
+
+  if (p->tls_callbackold) {
+      PIMAGE_TLS_CALLBACK* callback = (PIMAGE_TLS_CALLBACK*)(p->tls_callbackold + p->ImageBase);
+      PIMAGE_TLS_CALLBACK* callback_bckup =
+          (PIMAGE_TLS_CALLBACK*)(p->TlsCallbackNew + p->ImageBase);
+      while (*callback) {
+          *callback_bckup = *callback;
+          callback_bckup++;
+          callback++;
+      }
+      callback_bckup =
+          (PIMAGE_TLS_CALLBACK*)(p->TlsCallbackNew + p->ImageBase);
+      (*callback_bckup)((LPVOID)p->ImageBase, DLL_PROCESS_ATTACH, NULL);
+  }
 }
 MARK_END_OF_FUNCTION(depack_fnc)
 }

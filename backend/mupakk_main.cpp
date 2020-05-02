@@ -140,57 +140,6 @@ int compress_file(TCHAR *filename) {
   unsigned long current_section = 0;
   DWORD codeStart = image.get_base_of_code();
   section_list &sections = image.get_image_sections();
-  /*
-          DWORD codeStart = image.get_base_of_code();
-          section_list& sections = image.get_image_sections();
-          std::string packed_sections_info;
-          packed_sections_info.resize(sections.size() * sizeof(compdata));
-
-          for (auto& s : sections)
-          {
-                  size_t size = s.get_size_of_raw_data();
-                  std::string& out_buf = s.get_raw_data();
-                  compdata& info
-                  =
-     reinterpret_cast<compdata&>(packed_sections_info[current_section *
-     sizeof(compdata)]);
-                  //resources
-                  if (stubcode_ptr.OriginalResources == s.get_virtual_address())
-                  {
-
-                  }
-                  else
-                  {
-                          //code
-                          if (codeStart >= s.get_virtual_address() && codeStart
-     < s.get_virtual_address() + size)
-                          {
-                                  unsigned char* origdata = (unsigned
-     char*)s.get_raw_data().data(); x86_filter_enc(origdata, size); DWORD
-     compressed_size; unsigned char* compdata = compress_fr(origdata, size,
-     &compressed_size); out_buf.resize(compressed_size);
-                                  out_buf.assign(&compdata[0], &compdata[0] +
-     compressed_size); info.clen = compressed_size; info.ulen = 0; info.nlen =
-     size; info.iscode = true; info.src = (LPVOID)s.get_virtual_address();
-
-                                  s.set_size_of_raw_data(compressed_size);
-              }
-                          else
-                          {
-                                  unsigned char* origdata = (unsigned
-     char*)s.get_raw_data().data(); DWORD compressed_size; unsigned char*
-     compdata = compress_fr(origdata, size, &compressed_size);
-                                  out_buf.resize(compressed_size);
-                                  out_buf.assign(&compdata[0], &compdata[0] +
-     compressed_size); info.clen = compressed_size; info.ulen = 0; info.nlen =
-     size; info.iscode = false; info.src = (LPVOID)s.get_virtual_address();
-                                  s.set_size_of_raw_data(compressed_size);
-                          }
-                  }
-                  current_section++;
-          }
-
-          */
 
   for (auto &s : sections) {
     wstring str = Mud_String::ansitoutf16(s.get_name());
@@ -216,7 +165,7 @@ int compress_file(TCHAR *filename) {
   section pak_datasection;
   pak_datasection.set_name("UPAKK1");
   // Available for reading, writing, execution
-  pak_datasection.readable(true).writeable(true).executable(true);
+  pak_datasection.readable(true).writeable(false).executable(false);
   // Reference to section raw data
   std::string &out_buf = pak_datasection.get_raw_data();
 
@@ -318,7 +267,8 @@ int compress_file(TCHAR *filename) {
   section &unpacker_added_section = image.add_section(unpacker_section);
 
   if (tls.get()) {
-    stubcode_ptr.tls_index = tls->get_index_rva();
+    stubcode_ptr.tls_index = 0;
+    stubcode_ptr.tls_oldindexrva = tls->get_index_rva();
     if (!tls->get_tls_callbacks().empty())
       stubcode_ptr.tls_callbackold = tls->get_callbacks_rva();
     int tls_offset = get_bootloadersz() + offsetof(stubcode, tls_index);
@@ -396,7 +346,7 @@ int compress_file(TCHAR *filename) {
       message->DoLogMessage(log_info, LogMessage::ERR_INFO);
       first_callback_offset = data.size();
       data.resize(data.size() +
-                  sizeof(DWORD) * (tls->get_tls_callbacks().size() + 1));
+                  (sizeof(DWORD) * (tls->get_tls_callbacks().size()) + 1));
       *reinterpret_cast<DWORD *>(&data[first_callback_offset]) =
           image.rva_to_va_32(
               pe_base::rva_from_section_offset(unpacker_added_section, 0x07));

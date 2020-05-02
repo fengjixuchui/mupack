@@ -271,7 +271,6 @@
     </Midl>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="backend\brieflz\brieflz.c" />
     <ClCompile Include="backend\fr_pack\depacker_simple.cpp" />
     <ClCompile Include="backend\fr_pack\frpacker.cpp" />
     <ClCompile Include="backend\lzma\LzFind.c">
@@ -332,13 +331,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="backend\brieflz\brieflz.h" />
-    <ClInclude Include="backend\brieflz\brieflz_hashbucket.h" />
-    <ClInclude Include="backend\brieflz\brieflz_hashchain.h" />
-    <ClInclude Include="backend\brieflz\brieflz_lazy.h" />
-    <ClInclude Include="backend\brieflz\brieflz_leparse.h" />
-    <ClInclude Include="backend\brieflz\brieflz_sliding.h" />
-    <ClInclude Include="backend\brieflz\brieflz_ssparse.h" />
     <ClInclude Include="backend\fr_pack\frpacker.hpp" />
     <ClInclude Include="backend\lzma\LzFind.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>

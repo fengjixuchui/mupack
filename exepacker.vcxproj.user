@@ -3,6 +3,6 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LocalDebuggerWorkingDirectory>$(ProjectDir)out</LocalDebuggerWorkingDirectory>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
-    <LocalDebuggerCommandArguments>calc_winxp.exe</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>test_tlscallbackres.exe</LocalDebuggerCommandArguments>
   </PropertyGroup>
 </Project>

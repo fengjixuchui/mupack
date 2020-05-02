@@ -30,6 +30,7 @@ typedef PVOID(WINAPI *tVirtualAlloc)(PVOID, DWORD, DWORD, DWORD);
 typedef PVOID(WINAPI *tRtlMoveMemory)(PVOID, PVOID, DWORD);
 typedef BOOL(WINAPI *tVirtualFree)(PVOID, DWORD, DWORD);
 typedef BOOL(WINAPI *tVirtualProtect)(PVOID, DWORD, DWORD, PDWORD);
+typedef int(_stdcall* tdefilt)(PVOID, DWORD);
 
 typedef struct stubcode {
   DWORD mentry;
@@ -49,19 +50,19 @@ typedef struct stubcode {
   DWORD TlsCallbackNew;
   DWORD IsDepacked;
   DWORD ImageBase;
-  DWORD numsections;
   DWORD packed_ptr;
   DWORD sizepacked;
   DWORD sizeunpacked;
   DWORD tls_index;
+  DWORD tls_oldindexrva;
   DWORD lock_opcode;
   // IAT
   DWORD loadlib;
   DWORD getproc;
-  DWORD virtualalloc;
-  DWORD virtualfree;
-  DWORD virtualprotect;
-  DWORD rtlmovemem;
+  tVirtualAlloc virtualalloc;
+  tVirtualFree virtualfree;
+  tVirtualProtect virtualprotect;
+  tRtlMoveMemory rtlmovemem;
   DWORD iatend;
 };
 extern struct stubcode stubcode_ptr;

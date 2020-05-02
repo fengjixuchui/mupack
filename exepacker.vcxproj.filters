@@ -139,9 +139,6 @@
     <ClCompile Include="backend\mupakk_stubs.cpp">
       <Filter>common</Filter>
     </ClCompile>
-    <ClCompile Include="backend\brieflz\brieflz.c">
-      <Filter>common\brieflz</Filter>
-    </ClCompile>
     <ClCompile Include="backend\fr_pack\depacker_simple.cpp">
       <Filter>common\frpacker</Filter>
     </ClCompile>
@@ -201,27 +198,6 @@
     <ClInclude Include="backend\powapack.h">
       <Filter>common</Filter>
     </ClInclude>
-    <ClInclude Include="backend\brieflz\brieflz.h">
-      <Filter>common\brieflz</Filter>
-    </ClInclude>
-    <ClInclude Include="backend\brieflz\brieflz_hashbucket.h">
-      <Filter>common\brieflz</Filter>
-    </ClInclude>
-    <ClInclude Include="backend\brieflz\brieflz_hashchain.h">
-      <Filter>common\brieflz</Filter>
-    </ClInclude>
-    <ClInclude Include="backend\brieflz\brieflz_lazy.h">
-      <Filter>common\brieflz</Filter>
-    </ClInclude>
-    <ClInclude Include="backend\brieflz\brieflz_leparse.h">
-      <Filter>common\brieflz</Filter>
-    </ClInclude>
-    <ClInclude Include="backend\brieflz\brieflz_sliding.h">
-      <Filter>common\brieflz</Filter>
-    </ClInclude>
-    <ClInclude Include="backend\brieflz\brieflz_ssparse.h">
-      <Filter>common\brieflz</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="common">
@@ -238,9 +214,6 @@
     </Filter>
     <Filter Include="common\pe_bliss">
       <UniqueIdentifier>{43a42996-c1ac-4eb5-ac0f-9932a35c38ca}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="common\brieflz">
-      <UniqueIdentifier>{5ec56ebb-2ab6-4b76-9c39-b3085998ca5b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
