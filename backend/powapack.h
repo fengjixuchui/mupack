@@ -46,7 +46,6 @@ typedef struct stubcode {
   DWORD OriginalResourcesSize;
   DWORD OriginalRelocations;
   DWORD OriginalRelocationsSize;
-  DWORD OriginalLoadConfig;
   DWORD code_locsz;
   DWORD tls_callbackold;
   DWORD TlsCallbackNew;
@@ -55,7 +54,6 @@ typedef struct stubcode {
   DWORD sizeunpacked;
   DWORD tls_index;
   DWORD tls_oldindexrva;
-  DWORD lock_opcode;
   // IAT
   DWORD loadlib;
   DWORD getproc;

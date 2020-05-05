@@ -118,7 +118,6 @@ int compress_file(TCHAR *filename) {
   resource_directory new_root_dir;
 
   memset(&stubcode_ptr, 0, sizeof(stubcode));
-  stubcode_ptr.lock_opcode = 0xf0;
   stubcode_ptr.OriginalImports =
       image.get_directory_rva(IMAGE_DIRECTORY_ENTRY_IMPORT);
   stubcode_ptr.OriginalImportsSize =
@@ -131,8 +130,6 @@ int compress_file(TCHAR *filename) {
       image.get_directory_rva(IMAGE_DIRECTORY_ENTRY_BASERELOC);
   stubcode_ptr.OriginalRelocationsSize =
       image.get_directory_size(IMAGE_DIRECTORY_ENTRY_BASERELOC);
-  stubcode_ptr.OriginalLoadConfig =
-      image.get_directory_rva(IMAGE_DIRECTORY_ENTRY_LOAD_CONFIG);
 
   // Raw section bytes
   std::string raw_bytes;
@@ -219,21 +216,6 @@ int compress_file(TCHAR *filename) {
     message->DoLogMessage(log_info, LogMessage::ERR_INFO);
     exports = get_exported_functions(image, exports_info);
   }
-  std::auto_ptr<image_config_info> load_config;
-  if (image.has_config()) {
-    wsprintf(log_info, L"Reading load config info...");
-    message->DoLogMessage(log_info, LogMessage::ERR_INFO);
-
-    try {
-      load_config.reset(new image_config_info(get_image_config(image)));
-    } catch (const pe_exception &e) {
-      image.remove_directory(IMAGE_DIRECTORY_ENTRY_LOAD_CONFIG);
-      wsprintf(log_info, L"Error reading load config info...");
-      message->DoLogMessage(log_info, LogMessage::ERR_ERROR);
-    }
-  } else {
-    image.remove_directory(IMAGE_DIRECTORY_ENTRY_LOAD_CONFIG);
-  }
 
   rebuild_resources(&image, &new_root_dir);
 
@@ -265,16 +247,6 @@ int compress_file(TCHAR *filename) {
   std::string &unpacker_data = unpacker_section.get_raw_data();
   unpacker_data = "fart";
   section &unpacker_added_section = image.add_section(unpacker_section);
-
-  if (tls.get()) {
-    stubcode_ptr.tls_index = 0;
-    stubcode_ptr.tls_oldindexrva = tls->get_index_rva();
-    if (!tls->get_tls_callbacks().empty())
-      stubcode_ptr.tls_callbackold = tls->get_callbacks_rva();
-    int tls_offset = get_bootloadersz() + offsetof(stubcode, tls_index);
-    tls->set_index_rva(
-        pe_base::rva_from_section_offset(unpacker_added_section, tls_offset));
-  }
 
   unsigned char *stubcode_data =
       build_stub(image.get_ep(), image.get_image_base_32(),
@@ -334,16 +306,29 @@ int compress_file(TCHAR *filename) {
                       unpacker_added_section.get_raw_data().size());
 
   if (tls.get()) {
+          
+
     wsprintf(log_info, L"Rebuilding TLS directory.....");
     message->DoLogMessage(log_info, LogMessage::ERR_INFO);
     std::string &data = unpacker_added_section.get_raw_data();
     DWORD directory_pos = data.size();
     data.resize(data.size() + sizeof(IMAGE_TLS_DIRECTORY32) + sizeof(DWORD));
-
+    reinterpret_cast<stubcode*>(
+        &image.get_image_sections().at(1).get_raw_data()[get_bootloadersz()])
+        ->tls_index = 0;
+    reinterpret_cast<stubcode*>(
+        &image.get_image_sections().at(1).get_raw_data()[get_bootloadersz()])
+        ->tls_oldindexrva = tls->get_index_rva();
+    int tls_offset = get_bootloadersz() + offsetof(stubcode, tls_index);
+    tls->set_index_rva(
+        pe_base::rva_from_section_offset(unpacker_added_section, tls_offset));
     // If TLS has callbacks...
     if (!tls->get_tls_callbacks().empty()) {
       wsprintf(log_info, L"Rebuilding TLS callbacks.....");
       message->DoLogMessage(log_info, LogMessage::ERR_INFO);
+      reinterpret_cast<stubcode*>(
+          &image.get_image_sections().at(1).get_raw_data()[get_bootloadersz()])
+          ->tls_callbackold = tls->get_callbacks_rva();
       first_callback_offset = data.size();
       data.resize(data.size() +
                   (sizeof(DWORD) * (tls->get_tls_callbacks().size()) + 1));
@@ -367,7 +352,7 @@ int compress_file(TCHAR *filename) {
     unpacker_added_section.get_raw_data() += tls->get_raw_data();
     image.set_section_virtual_size(unpacker_added_section,
                                    data.size() + tls->get_size_of_zero_fill());
-    if (!image.has_reloc() && !image.has_exports() && !load_config.get())
+    if (!image.has_reloc() && !image.has_exports())
       pe_utils::strip_nullbytes(unpacker_added_section.get_raw_data());
     image.prepare_section(unpacker_added_section);
   }
