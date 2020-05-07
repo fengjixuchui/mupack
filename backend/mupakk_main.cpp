@@ -239,7 +239,7 @@ int compress_file(TCHAR *filename) {
   // It is necessary to reserve place for
   // original TLS callbacks
   // plus one cell for zero DWORD
-  DWORD first_callback_offset = 0;
+  DWORD tls_callbacksoffset = 0;
   int stubcode_size = stubcode_sz();
   // Build PE stub/bootstrap section
   section unpacker_section;
@@ -333,14 +333,11 @@ int compress_file(TCHAR *filename) {
       reinterpret_cast<stubcode*>(
           &image.get_image_sections().at(1).get_raw_data()[get_bootloadersz()])
           ->tls_callbackold = tls->get_callbacks_rva();
-      first_callback_offset = data.size();
+      tls_callbacksoffset = data.size();
       data.resize(data.size() +
                   (sizeof(DWORD) * (tls->get_tls_callbacks().size()) + 1));
-      *reinterpret_cast<DWORD *>(&data[first_callback_offset]) =
-          image.rva_to_va_32(
-              pe_base::rva_from_section_offset(unpacker_added_section, 0x07));
       tls->set_callbacks_rva(pe_base::rva_from_section_offset(
-          unpacker_added_section, first_callback_offset));
+          unpacker_added_section, tls_callbacksoffset));
       reinterpret_cast<stubcode *>(
           &image.get_image_sections().at(1).get_raw_data()[get_bootloadersz()])
           ->TlsCallbackNew = tls->get_callbacks_rva();
@@ -400,7 +397,7 @@ int compress_file(TCHAR *filename) {
           IMAGE_REL_BASED_HIGHLOW));
 
       // If TLS callbacks exist
-      if (first_callback_offset) {
+      if (tls_callbacksoffset) {
         table.add_relocation(
             relocation_entry(static_cast<WORD>(offsetof(IMAGE_TLS_DIRECTORY32,
                                                         AddressOfCallBacks)),

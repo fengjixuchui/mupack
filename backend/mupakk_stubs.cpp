@@ -359,10 +359,6 @@ public:
   Bootstrapper(int packer_struct, int main_loadcode, int OEP) {
     //altered by relocation
     mov(ebx, 0);
-    jmp(".tls");
-    //TLS callback
-    ret(0xC);
-    L(".tls");
     push(ebx); //offset made by relocation
     lea(eax, ptr[ebx + packer_struct]);
     push(eax);
