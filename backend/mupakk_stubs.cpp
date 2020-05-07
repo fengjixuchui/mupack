@@ -313,21 +313,14 @@ static void depack_fnc(stubcode *p, INT_PTR base_offset) {
   PIMAGE_DOS_HEADER pDosHeader = (PIMAGE_DOS_HEADER)p->ImageBase;
   PIMAGE_NT_HEADERS pNTHeader =
       (PIMAGE_NT_HEADERS)((DWORD)pDosHeader + (DWORD)pDosHeader->e_lfanew);
-  p->virtualprotect((LPVOID)p->ImageBase, pNTHeader->FileHeader.SizeOfOptionalHeader,
+  IMAGE_OPTIONAL_HEADER* pOptHeader = (IMAGE_OPTIONAL_HEADER*)&pNTHeader->OptionalHeader;
+  p->virtualprotect((LPVOID)pOptHeader, pNTHeader->FileHeader.SizeOfOptionalHeader,
            PAGE_READWRITE, &old_protect);
-  DWORD offset_to_directories =
-      p->ImageBase + pDosHeader->e_lfanew + sizeof(IMAGE_NT_HEADERS32) -
-      sizeof(IMAGE_DATA_DIRECTORY) * IMAGE_NUMBEROF_DIRECTORY_ENTRIES;
-  IMAGE_DATA_DIRECTORY *resource_dir =
-      (IMAGE_DATA_DIRECTORY *)(offset_to_directories +
-                               sizeof(IMAGE_DATA_DIRECTORY) *
-                                   IMAGE_DIRECTORY_ENTRY_RESOURCE);
+  IMAGE_DATA_DIRECTORY* resource_dir = (IMAGE_DATA_DIRECTORY*)&pOptHeader->DataDirectory[IMAGE_DIRECTORY_ENTRY_RESOURCE];
   resource_dir->Size = p->OriginalResourcesSize;
   resource_dir->VirtualAddress = p->OriginalResources;
   IMAGE_DATA_DIRECTORY *import_dir =
-      (IMAGE_DATA_DIRECTORY *)(offset_to_directories +
-                               sizeof(IMAGE_DATA_DIRECTORY) *
-                                   IMAGE_DIRECTORY_ENTRY_IAT);
+      (IMAGE_DATA_DIRECTORY *) import_dir =(IMAGE_DATA_DIRECTORY*)&pOptHeader->DataDirectory[IMAGE_DIRECTORY_ENTRY_IAT];
   import_dir->Size = p->OriginalImportsSize;
   import_dir->VirtualAddress = p->OriginalImports;
   p->virtualprotect((LPVOID)p->ImageBase, pNTHeader->FileHeader.SizeOfOptionalHeader,

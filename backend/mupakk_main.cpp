@@ -232,6 +232,10 @@ int compress_file(TCHAR *filename) {
 
   image.set_section_virtual_size(packer_datasection, total_virtual_size);
 
+
+
+
+
   // It is necessary to reserve place for
   // original TLS callbacks
   // plus one cell for zero DWORD
