@@ -323,7 +323,7 @@ static void depack_fnc(stubcode *p, INT_PTR base_offset) {
       (IMAGE_DATA_DIRECTORY *) import_dir =(IMAGE_DATA_DIRECTORY*)&pOptHeader->DataDirectory[IMAGE_DIRECTORY_ENTRY_IAT];
   import_dir->Size = p->OriginalImportsSize;
   import_dir->VirtualAddress = p->OriginalImports;
-  p->virtualprotect((LPVOID)p->ImageBase, pNTHeader->FileHeader.SizeOfOptionalHeader,
+  p->virtualprotect((LPVOID)pOptHeader, pNTHeader->FileHeader.SizeOfOptionalHeader,
            old_protect, &old_protect);
 
   if (p->tls_oldindexrva)
