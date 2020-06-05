@@ -32,6 +32,7 @@
 #include <string>
 #include "backend/pe_bliss/pe_bliss.h"
 #include "backend/pe_bliss/pe_bliss_resources.h"
+#include "backend/pe_bliss/pe_structures.h"
 extern CAppModule _Module;
 
 #include <atlwin.h>

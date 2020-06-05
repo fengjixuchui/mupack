@@ -3,6 +3,12 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LocalDebuggerWorkingDirectory>$(ProjectDir)out</LocalDebuggerWorkingDirectory>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
-    <LocalDebuggerCommandArguments>test_tlscallbackres.exe</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>calc_winxp.exe</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommand>C:\codecrack\github\working\mupack\out\mupakk.exe</LocalDebuggerCommand>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LocalDebuggerCommand>C:\codecrack\github\working\mupack\out\mupakk.exe</LocalDebuggerCommand>
+    <LocalDebuggerWorkingDirectory>.\out</LocalDebuggerWorkingDirectory>
+    <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
 </Project>
