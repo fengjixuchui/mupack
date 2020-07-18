@@ -1,7 +1,7 @@
 # mupakk
 
 ![mupakk](https://i.imgur.com/S6FIoj4.png)
-![mupakk](https://i.imgur.com/55YOan0.png
+![mupakk](https://i.imgur.com/55YOan0.png)
 
 **Disclaimer**
 
