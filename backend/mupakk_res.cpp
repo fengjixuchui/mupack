@@ -4,8 +4,6 @@
 using namespace pe_bliss;
 
 void rebuild_resources(pe_base *image, resource_directory *new_root_dir) {
-  if (image->has_resources()) {
-    std::cout << "Repacking resources..." << std::endl;
 
     // Get original file resources (root directory)
     resource_directory root_dir = get_resources(*image);
@@ -98,5 +96,4 @@ void rebuild_resources(pe_base *image, resource_directory *new_root_dir) {
       // If there is any resource error,
       // do nothing
     }
-  }
 }

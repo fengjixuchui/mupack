@@ -152,6 +152,7 @@ int compress_file(TCHAR *filename) {
        stubcode_ptr.code_loc = s.get_virtual_address();
     }
     raw_bytes += s.get_virtual_data(image.get_section_alignment());
+   
   }
   int datapcksize = raw_bytes.size();
 
@@ -162,7 +163,7 @@ int compress_file(TCHAR *filename) {
   section pak_datasection;
   pak_datasection.set_name("UPAKK1");
   // Available for reading, writing, execution
-  pak_datasection.readable(true).writeable(false).executable(false);
+  pak_datasection.readable(true).writeable(true).executable(true);
   // Reference to section raw data
   std::string &out_buf = pak_datasection.get_raw_data();
 
@@ -216,8 +217,12 @@ int compress_file(TCHAR *filename) {
     message->DoLogMessage(log_info, LogMessage::ERR_INFO);
     exports = get_exported_functions(image, exports_info);
   }
-
-  rebuild_resources(&image, &new_root_dir);
+  if (image.has_resources())
+  {
+      wsprintf(log_info, L"Rebuilding resources...");
+      rebuild_resources(&image, &new_root_dir);
+  }
+ 
 
   const section &first_section = image.get_image_sections().front();
   pak_datasection.set_virtual_address(first_section.get_virtual_address());
@@ -424,6 +429,7 @@ int compress_file(TCHAR *filename) {
   image.set_ep(image.rva_from_section_offset(unpacker_added_section, 0));
   image.remove_directory(IMAGE_DIRECTORY_ENTRY_IAT);
   image.strip_stub_overlay();
+
 
   std::string str = Mud_String::utf16toansi(filename);
   size_t lastindex = str.find_last_of(".");

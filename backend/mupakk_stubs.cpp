@@ -275,6 +275,9 @@ static size_t x86_filter(BYTE *data, size_t size) {
 }
 MARK_END_OF_FUNCTION(x86_filter)
 
+#define peheaderoff(a) ((LPVOID)((BYTE *)a +    \
+                        ((PIMAGE_DOS_HEADER)a)->e_lfanew))
+
 static void depack_fnc(stubcode *p, INT_PTR base_offset) {
   if (p->IsDepacked == 1)
     return;
@@ -293,9 +296,6 @@ static void depack_fnc(stubcode *p, INT_PTR base_offset) {
   unsigned char *input =
       (unsigned char *)p->virtualalloc(NULL, p->sizepacked, MEM_COMMIT, PAGE_READWRITE);
   p->rtlmovemem(input, (LPVOID)p->packed_ptr, p->sizepacked);
-  p->virtualprotect((LPVOID)p->packed_ptr, p->sizeunpacked, PAGE_EXECUTE_READWRITE,
-           &OldP);
-
   decomp((LPVOID)p->packed_ptr, (unsigned char *)input);
   
   codefilt((LPVOID)(p->packed_ptr), p->code_locsz);
@@ -304,15 +304,8 @@ static void depack_fnc(stubcode *p, INT_PTR base_offset) {
   trestore restore = (trestore)p->restore;
   restore(p, (LPVOID)base_offset);
 
-
-  
-
-  
-
   DWORD old_protect;
-  PIMAGE_DOS_HEADER pDosHeader = (PIMAGE_DOS_HEADER)p->ImageBase;
-  PIMAGE_NT_HEADERS pNTHeader =
-      (PIMAGE_NT_HEADERS)((DWORD)pDosHeader + (DWORD)pDosHeader->e_lfanew);
+  PIMAGE_NT_HEADERS pNTHeader = (PIMAGE_NT_HEADERS)peheaderoff(p->ImageBase);
   p->virtualprotect((LPVOID)&pNTHeader->OptionalHeader, pNTHeader->FileHeader.SizeOfOptionalHeader,
            PAGE_READWRITE, &old_protect);
   IMAGE_DATA_DIRECTORY* resource_dir = (IMAGE_DATA_DIRECTORY*)
@@ -324,8 +317,6 @@ static void depack_fnc(stubcode *p, INT_PTR base_offset) {
       &pNTHeader->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_IAT];
   import_dir->Size = p->OriginalImportsSize;
   import_dir->VirtualAddress = p->OriginalImports;
-  p->virtualprotect((LPVOID)&pNTHeader->OptionalHeader, pNTHeader->FileHeader.SizeOfOptionalHeader,
-           old_protect, &old_protect);
 
   if (p->tls_oldindexrva)
       *(DWORD*)(p->tls_oldindexrva + p->ImageBase) = p->tls_index;
